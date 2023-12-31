@@ -302,6 +302,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.9"
+  flutter_snowflake:
+    dependency: "direct main"
+    description:
+      name: flutter_snowflake
+      sha256: c1e3b4feebe0f96fcc284e6720a5ce74d57f6cfb7be34356436f19e30380d2fb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -312,6 +320,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fpdart:
+    dependency: "direct main"
+    description:
+      name: fpdart
+      sha256: "7413acc5a6569a3fe8277928fc7487f3198530f0c4e635d0baef199ea36e8ee9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   freezed:
     dependency: "direct dev"
     description:
