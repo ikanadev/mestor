@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/domain/types.dart';
 import 'package:mestorapp/providers/providers.dart';
+import 'package:mestorapp/widgets/widgests.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -21,10 +22,11 @@ class HomeScreen extends ConsumerWidget {
             loading: () => const CircularProgressIndicator(),
             data: (acts) => Expanded(
               child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 120,
                   crossAxisSpacing: 8,
                   mainAxisSpacing: 8,
+                  childAspectRatio: 1.6,
                 ),
                 itemCount: acts.length + 1,
                 itemBuilder: (BuildContext context, int index) {
@@ -36,17 +38,15 @@ class HomeScreen extends ConsumerWidget {
                             .read(activitiesNotifierProvider.notifier)
                             .saveActivity(
                               NewActivityData(
-                                name: '',
-                                iconName: '',
+                                name: 'some name',
+                                iconName: 'icon name',
                                 color: ActColor.red,
                               ),
                             );
                       },
                     );
                   }
-                  final act = acts[index];
-                  return ElevatedButton(
-                      child: Text('${act.id}'), onPressed: () {});
+                  return ActivityItem(activity: acts[index]);
                 },
               ),
             ),
