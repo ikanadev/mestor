@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
         useMaterial3: true,
       ),
+      darkTheme: ThemeData.dark(),
     );
   }
 }

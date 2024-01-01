@@ -11,47 +11,67 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final actsProv = ref.watch(activitiesNotifierProvider);
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(title: const Text("Mestor")),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Text("Home screen"),
-          actsProv.when(
-            error: (error, _) => Text('$error'),
-            loading: () => const CircularProgressIndicator(),
-            data: (acts) => Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 120,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                  childAspectRatio: 1.6,
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              "What you did today?",
+              textAlign: TextAlign.center,
+              style: textTheme.headlineMedium,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.lightbulb, size: 14),
+                Text(
+                  "Long press to see more options",
+                  style: textTheme.bodySmall
+                      ?.copyWith(fontStyle: FontStyle.italic),
                 ),
-                itemCount: acts.length + 1,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == acts.length) {
-                    return ElevatedButton(
-                      child: const Text("Add"),
-                      onPressed: () {
-                        ref
-                            .read(activitiesNotifierProvider.notifier)
-                            .saveActivity(
-                              NewActivityData(
-                                name: 'some name',
-                                iconName: 'icon name',
-                                color: ActColor.red,
-                              ),
-                            );
-                      },
-                    );
-                  }
-                  return ActivityItem(activity: acts[index]);
-                },
+              ],
+            ),
+            const SizedBox(height: 20),
+            actsProv.when(
+              error: (error, _) => Text('$error'),
+              loading: () => const CircularProgressIndicator(),
+              data: (acts) => Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 1.6,
+                  ),
+                  itemCount: acts.length + 1,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == acts.length) {
+                      return ElevatedButton(
+                        child: const Text("Add"),
+                        onPressed: () {
+                          ref
+                              .read(activitiesNotifierProvider.notifier)
+                              .saveActivity(
+                                NewActivityData(
+                                  name: 'mmmmmmmmmmmmmmmmmmmM',
+                                  iconName: 'icon name',
+                                  color: ActColor.red,
+                                ),
+                              );
+                        },
+                      );
+                    }
+                    return ActivityItem(activity: acts[index]);
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
