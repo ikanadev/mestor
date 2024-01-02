@@ -46,6 +46,7 @@ dependencies:
   sqlite3: ^2.3.0
   fpdart: ^1.1.0
   flutter_snowflake: ^0.0.4
+  emoji_picker_flutter: ^1.6.3
 
 dev_dependencies:
   flutter_test:
