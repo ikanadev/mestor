@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Activity {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get iconName => throw _privateConstructorUsedError;
   ActColor get color => throw _privateConstructorUsedError;
@@ -34,7 +34,7 @@ abstract class $ActivityCopyWith<$Res> {
       _$ActivityCopyWithImpl<$Res, Activity>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String name,
       String iconName,
       ActColor color,
@@ -66,7 +66,7 @@ class _$ActivityCopyWithImpl<$Res, $Val extends Activity>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -100,7 +100,7 @@ abstract class _$$ActivityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String name,
       String iconName,
       ActColor color,
@@ -130,7 +130,7 @@ class __$$ActivityImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -167,7 +167,7 @@ class _$ActivityImpl implements _Activity {
       this.deletedAt});
 
   @override
-  final int id;
+  final String id;
   @override
   final String name;
   @override
@@ -213,7 +213,7 @@ class _$ActivityImpl implements _Activity {
 
 abstract class _Activity implements Activity {
   const factory _Activity(
-      {required final int id,
+      {required final String id,
       required final String name,
       required final String iconName,
       required final ActColor color,
@@ -221,7 +221,7 @@ abstract class _Activity implements Activity {
       final DateTime? deletedAt}) = _$ActivityImpl;
 
   @override
-  int get id;
+  String get id;
   @override
   String get name;
   @override

@@ -11,9 +11,9 @@ class $ActivityDbTable extends ActivityDb
   $ActivityDbTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
@@ -94,7 +94,7 @@ class $ActivityDbTable extends ActivityDb
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ActivityDbData(
       id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       iconName: attachedDatabase.typeMapping
@@ -119,7 +119,7 @@ class $ActivityDbTable extends ActivityDb
 }
 
 class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
-  final int id;
+  final String id;
   final String name;
   final String iconName;
   final ActColor color;
@@ -135,7 +135,7 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['id'] = Variable<String>(id);
     map['name'] = Variable<String>(name);
     map['icon_name'] = Variable<String>(iconName);
     {
@@ -166,7 +166,7 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return ActivityDbData(
-      id: serializer.fromJson<int>(json['id']),
+      id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       iconName: serializer.fromJson<String>(json['iconName']),
       color: $ActivityDbTable.$convertercolor
@@ -179,7 +179,7 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
       'iconName': serializer.toJson<String>(iconName),
       'color': serializer
@@ -190,7 +190,7 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
   }
 
   ActivityDbData copyWith(
-          {int? id,
+          {String? id,
           String? name,
           String? iconName,
           ActColor? color,
@@ -233,7 +233,7 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
 }
 
 class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
-  final Value<int> id;
+  final Value<String> id;
   final Value<String> name;
   final Value<String> iconName;
   final Value<ActColor> color;
@@ -250,7 +250,7 @@ class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
     this.rowid = const Value.absent(),
   });
   ActivityDbCompanion.insert({
-    required int id,
+    required String id,
     required String name,
     required String iconName,
     required ActColor color,
@@ -263,7 +263,7 @@ class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
         color = Value(color),
         createdAt = Value(createdAt);
   static Insertable<ActivityDbData> custom({
-    Expression<int>? id,
+    Expression<String>? id,
     Expression<String>? name,
     Expression<String>? iconName,
     Expression<int>? color,
@@ -283,7 +283,7 @@ class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
   }
 
   ActivityDbCompanion copyWith(
-      {Value<int>? id,
+      {Value<String>? id,
       Value<String>? name,
       Value<String>? iconName,
       Value<ActColor>? color,
@@ -305,7 +305,7 @@ class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int>(id.value);
+      map['id'] = Variable<String>(id.value);
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);

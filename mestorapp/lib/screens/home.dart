@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/domain/types.dart';
 import 'package:mestorapp/providers/providers.dart';
 import 'package:mestorapp/widgets/widgests.dart';
-import 'package:go_router/go_router.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -46,7 +46,7 @@ class HomeScreen extends ConsumerWidget {
                     maxCrossAxisExtent: 200,
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
-                    childAspectRatio: 1.6,
+                    mainAxisExtent: 90,
                   ),
                   itemCount: acts.length + 1,
                   itemBuilder: (BuildContext context, int index) {

@@ -6,7 +6,7 @@ part 'activity.freezed.dart';
 @freezed
 class Activity with _$Activity {
   const factory Activity({
-    required int id,
+    required String id,
     required String name,
     required String iconName,
     required ActColor color,
