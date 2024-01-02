@@ -54,7 +54,7 @@ class HomeScreen extends ConsumerWidget {
                       return ElevatedButton(
                         child: const Text("Add"),
                         onPressed: () {
-                          context.go("/new_activity");
+                          context.push("/new_activity");
                           return;
                           ref
                               .read(activitiesNotifierProvider.notifier)

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mestorapp/utils/validators.dart';
+import 'package:mestorapp/domain/models/models.dart';
+import 'package:mestorapp/utils/utils.dart';
+import 'package:mestorapp/widgets/widgests.dart';
 
 class NewActivity extends StatefulWidget {
   const NewActivity({super.key});
@@ -11,34 +13,52 @@ class NewActivity extends StatefulWidget {
 class _NewActivity extends State<NewActivity> {
   final _formKey = GlobalKey<FormState>();
   final _nameCont = TextEditingController();
+  ActColor _color = ActColor.red;
+
+  void _handleSave() {
+    if (_formKey.currentState == null || !_formKey.currentState!.validate()) {
+      return;
+    }
+  }
+
+  void _setColor(ActColor color) {
+    setState(() {
+      _color = color;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(title: const Text("New Activity")),
+      appBar: AppBar(
+        title: const Text("New Activity"),
+        centerTitle: true,
+      ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              "New Activity",
-              textAlign: TextAlign.center,
-              style: textTheme.headlineMedium,
-            ),
             const SizedBox(height: 32),
             Form(
               key: _formKey,
               child: TextFormField(
                 decoration: const InputDecoration(
                   labelText: 'Name',
-                  border: OutlineInputBorder(),
                 ),
                 validator: nonEmptyValidator,
+                maxLength: 20,
                 controller: _nameCont,
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const Text("Color:"),
+                ColorPickerButton(color: _color, onSelect: _setColor),
+              ],
+            ),
+            TextButton(onPressed: _handleSave, child: const Text("Save")),
           ],
         ),
       ),
