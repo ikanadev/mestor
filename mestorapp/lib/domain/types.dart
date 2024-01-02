@@ -6,11 +6,11 @@ typedef EitherActivities = Either<String, List<Activity>>;
 
 class NewActivityData {
   final String name;
-  final String iconName;
+  final String emoji;
   final ActColor color;
   NewActivityData({
     required this.name,
-    required this.iconName,
+    required this.emoji,
     required this.color,
   });
 }

@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Activity {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get iconName => throw _privateConstructorUsedError;
+  String get emoji => throw _privateConstructorUsedError;
   ActColor get color => throw _privateConstructorUsedError;
   DateTime get createAt => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ abstract class $ActivityCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      String iconName,
+      String emoji,
       ActColor color,
       DateTime createAt,
       DateTime? deletedAt});
@@ -57,7 +57,7 @@ class _$ActivityCopyWithImpl<$Res, $Val extends Activity>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? iconName = null,
+    Object? emoji = null,
     Object? color = null,
     Object? createAt = null,
     Object? deletedAt = freezed,
@@ -71,9 +71,9 @@ class _$ActivityCopyWithImpl<$Res, $Val extends Activity>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      iconName: null == iconName
-          ? _value.iconName
-          : iconName // ignore: cast_nullable_to_non_nullable
+      emoji: null == emoji
+          ? _value.emoji
+          : emoji // ignore: cast_nullable_to_non_nullable
               as String,
       color: null == color
           ? _value.color
@@ -102,7 +102,7 @@ abstract class _$$ActivityImplCopyWith<$Res>
   $Res call(
       {String id,
       String name,
-      String iconName,
+      String emoji,
       ActColor color,
       DateTime createAt,
       DateTime? deletedAt});
@@ -121,7 +121,7 @@ class __$$ActivityImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? iconName = null,
+    Object? emoji = null,
     Object? color = null,
     Object? createAt = null,
     Object? deletedAt = freezed,
@@ -135,9 +135,9 @@ class __$$ActivityImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      iconName: null == iconName
-          ? _value.iconName
-          : iconName // ignore: cast_nullable_to_non_nullable
+      emoji: null == emoji
+          ? _value.emoji
+          : emoji // ignore: cast_nullable_to_non_nullable
               as String,
       color: null == color
           ? _value.color
@@ -161,7 +161,7 @@ class _$ActivityImpl implements _Activity {
   const _$ActivityImpl(
       {required this.id,
       required this.name,
-      required this.iconName,
+      required this.emoji,
       required this.color,
       required this.createAt,
       this.deletedAt});
@@ -171,7 +171,7 @@ class _$ActivityImpl implements _Activity {
   @override
   final String name;
   @override
-  final String iconName;
+  final String emoji;
   @override
   final ActColor color;
   @override
@@ -181,7 +181,7 @@ class _$ActivityImpl implements _Activity {
 
   @override
   String toString() {
-    return 'Activity(id: $id, name: $name, iconName: $iconName, color: $color, createAt: $createAt, deletedAt: $deletedAt)';
+    return 'Activity(id: $id, name: $name, emoji: $emoji, color: $color, createAt: $createAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -191,8 +191,7 @@ class _$ActivityImpl implements _Activity {
             other is _$ActivityImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.iconName, iconName) ||
-                other.iconName == iconName) &&
+            (identical(other.emoji, emoji) || other.emoji == emoji) &&
             (identical(other.color, color) || other.color == color) &&
             (identical(other.createAt, createAt) ||
                 other.createAt == createAt) &&
@@ -202,7 +201,7 @@ class _$ActivityImpl implements _Activity {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, name, iconName, color, createAt, deletedAt);
+      Object.hash(runtimeType, id, name, emoji, color, createAt, deletedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -215,7 +214,7 @@ abstract class _Activity implements Activity {
   const factory _Activity(
       {required final String id,
       required final String name,
-      required final String iconName,
+      required final String emoji,
       required final ActColor color,
       required final DateTime createAt,
       final DateTime? deletedAt}) = _$ActivityImpl;
@@ -225,7 +224,7 @@ abstract class _Activity implements Activity {
   @override
   String get name;
   @override
-  String get iconName;
+  String get emoji;
   @override
   ActColor get color;
   @override

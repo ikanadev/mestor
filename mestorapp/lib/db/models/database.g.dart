@@ -19,11 +19,10 @@ class $ActivityDbTable extends ActivityDb
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _iconNameMeta =
-      const VerificationMeta('iconName');
+  static const VerificationMeta _emojiMeta = const VerificationMeta('emoji');
   @override
-  late final GeneratedColumn<String> iconName = GeneratedColumn<String>(
-      'icon_name', aliasedName, false,
+  late final GeneratedColumn<String> emoji = GeneratedColumn<String>(
+      'emoji', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _colorMeta = const VerificationMeta('color');
   @override
@@ -45,7 +44,7 @@ class $ActivityDbTable extends ActivityDb
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, name, iconName, color, createdAt, deletedAt];
+      [id, name, emoji, color, createdAt, deletedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -67,11 +66,11 @@ class $ActivityDbTable extends ActivityDb
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
-    if (data.containsKey('icon_name')) {
-      context.handle(_iconNameMeta,
-          iconName.isAcceptableOrUnknown(data['icon_name']!, _iconNameMeta));
+    if (data.containsKey('emoji')) {
+      context.handle(
+          _emojiMeta, emoji.isAcceptableOrUnknown(data['emoji']!, _emojiMeta));
     } else if (isInserting) {
-      context.missing(_iconNameMeta);
+      context.missing(_emojiMeta);
     }
     context.handle(_colorMeta, const VerificationResult.success());
     if (data.containsKey('created_at')) {
@@ -97,8 +96,8 @@ class $ActivityDbTable extends ActivityDb
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      iconName: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}icon_name'])!,
+      emoji: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}emoji'])!,
       color: $ActivityDbTable.$convertercolor.fromSql(attachedDatabase
           .typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}color'])!),
@@ -121,14 +120,14 @@ class $ActivityDbTable extends ActivityDb
 class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
   final String id;
   final String name;
-  final String iconName;
+  final String emoji;
   final ActColor color;
   final DateTime createdAt;
   final DateTime? deletedAt;
   const ActivityDbData(
       {required this.id,
       required this.name,
-      required this.iconName,
+      required this.emoji,
       required this.color,
       required this.createdAt,
       this.deletedAt});
@@ -137,7 +136,7 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['name'] = Variable<String>(name);
-    map['icon_name'] = Variable<String>(iconName);
+    map['emoji'] = Variable<String>(emoji);
     {
       map['color'] =
           Variable<int>($ActivityDbTable.$convertercolor.toSql(color));
@@ -153,7 +152,7 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
     return ActivityDbCompanion(
       id: Value(id),
       name: Value(name),
-      iconName: Value(iconName),
+      emoji: Value(emoji),
       color: Value(color),
       createdAt: Value(createdAt),
       deletedAt: deletedAt == null && nullToAbsent
@@ -168,7 +167,7 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
     return ActivityDbData(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
-      iconName: serializer.fromJson<String>(json['iconName']),
+      emoji: serializer.fromJson<String>(json['emoji']),
       color: $ActivityDbTable.$convertercolor
           .fromJson(serializer.fromJson<int>(json['color'])),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -181,7 +180,7 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
-      'iconName': serializer.toJson<String>(iconName),
+      'emoji': serializer.toJson<String>(emoji),
       'color': serializer
           .toJson<int>($ActivityDbTable.$convertercolor.toJson(color)),
       'createdAt': serializer.toJson<DateTime>(createdAt),
@@ -192,14 +191,14 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
   ActivityDbData copyWith(
           {String? id,
           String? name,
-          String? iconName,
+          String? emoji,
           ActColor? color,
           DateTime? createdAt,
           Value<DateTime?> deletedAt = const Value.absent()}) =>
       ActivityDbData(
         id: id ?? this.id,
         name: name ?? this.name,
-        iconName: iconName ?? this.iconName,
+        emoji: emoji ?? this.emoji,
         color: color ?? this.color,
         createdAt: createdAt ?? this.createdAt,
         deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
@@ -209,7 +208,7 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
     return (StringBuffer('ActivityDbData(')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('iconName: $iconName, ')
+          ..write('emoji: $emoji, ')
           ..write('color: $color, ')
           ..write('createdAt: $createdAt, ')
           ..write('deletedAt: $deletedAt')
@@ -218,15 +217,14 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, name, iconName, color, createdAt, deletedAt);
+  int get hashCode => Object.hash(id, name, emoji, color, createdAt, deletedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ActivityDbData &&
           other.id == this.id &&
           other.name == this.name &&
-          other.iconName == this.iconName &&
+          other.emoji == this.emoji &&
           other.color == this.color &&
           other.createdAt == this.createdAt &&
           other.deletedAt == this.deletedAt);
@@ -235,7 +233,7 @@ class ActivityDbData extends DataClass implements Insertable<ActivityDbData> {
 class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
   final Value<String> id;
   final Value<String> name;
-  final Value<String> iconName;
+  final Value<String> emoji;
   final Value<ActColor> color;
   final Value<DateTime> createdAt;
   final Value<DateTime?> deletedAt;
@@ -243,7 +241,7 @@ class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
   const ActivityDbCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
-    this.iconName = const Value.absent(),
+    this.emoji = const Value.absent(),
     this.color = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.deletedAt = const Value.absent(),
@@ -252,20 +250,20 @@ class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
   ActivityDbCompanion.insert({
     required String id,
     required String name,
-    required String iconName,
+    required String emoji,
     required ActColor color,
     required DateTime createdAt,
     this.deletedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   })  : id = Value(id),
         name = Value(name),
-        iconName = Value(iconName),
+        emoji = Value(emoji),
         color = Value(color),
         createdAt = Value(createdAt);
   static Insertable<ActivityDbData> custom({
     Expression<String>? id,
     Expression<String>? name,
-    Expression<String>? iconName,
+    Expression<String>? emoji,
     Expression<int>? color,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? deletedAt,
@@ -274,7 +272,7 @@ class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
-      if (iconName != null) 'icon_name': iconName,
+      if (emoji != null) 'emoji': emoji,
       if (color != null) 'color': color,
       if (createdAt != null) 'created_at': createdAt,
       if (deletedAt != null) 'deleted_at': deletedAt,
@@ -285,7 +283,7 @@ class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
   ActivityDbCompanion copyWith(
       {Value<String>? id,
       Value<String>? name,
-      Value<String>? iconName,
+      Value<String>? emoji,
       Value<ActColor>? color,
       Value<DateTime>? createdAt,
       Value<DateTime?>? deletedAt,
@@ -293,7 +291,7 @@ class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
     return ActivityDbCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
-      iconName: iconName ?? this.iconName,
+      emoji: emoji ?? this.emoji,
       color: color ?? this.color,
       createdAt: createdAt ?? this.createdAt,
       deletedAt: deletedAt ?? this.deletedAt,
@@ -310,8 +308,8 @@ class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
-    if (iconName.present) {
-      map['icon_name'] = Variable<String>(iconName.value);
+    if (emoji.present) {
+      map['emoji'] = Variable<String>(emoji.value);
     }
     if (color.present) {
       map['color'] =
@@ -334,7 +332,7 @@ class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
     return (StringBuffer('ActivityDbCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('iconName: $iconName, ')
+          ..write('emoji: $emoji, ')
           ..write('color: $color, ')
           ..write('createdAt: $createdAt, ')
           ..write('deletedAt: $deletedAt, ')
