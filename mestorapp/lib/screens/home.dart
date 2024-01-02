@@ -4,6 +4,7 @@ import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/domain/types.dart';
 import 'package:mestorapp/providers/providers.dart';
 import 'package:mestorapp/widgets/widgests.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -15,7 +16,7 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Mestor")),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -35,7 +36,7 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 32),
             actsProv.when(
               error: (error, _) => Text('$error'),
               loading: () => const CircularProgressIndicator(),
@@ -43,8 +44,8 @@ class HomeScreen extends ConsumerWidget {
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 200,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
                     childAspectRatio: 1.6,
                   ),
                   itemCount: acts.length + 1,
@@ -53,6 +54,8 @@ class HomeScreen extends ConsumerWidget {
                       return ElevatedButton(
                         child: const Text("Add"),
                         onPressed: () {
+                          context.go("/new_activity");
+                          return;
                           ref
                               .read(activitiesNotifierProvider.notifier)
                               .saveActivity(
