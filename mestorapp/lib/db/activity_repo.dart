@@ -25,7 +25,7 @@ class ActivityDbRepository extends ActivityRepository {
         deletedAt: act.deletedAt,
       );
     }).toList();
-    return Future.value(acts);
+    return acts;
   }
 
   @override
@@ -37,5 +37,17 @@ class ActivityDbRepository extends ActivityRepository {
           emoji: data.emoji,
           createdAt: DateTime.now(),
         ));
+  }
+
+  @override
+  Future<List<Record>> getRecords(String actId) async {
+    final query = appDb.select(appDb.recordDb);
+    query.where((r) => r.activity.equals(actId));
+
+    final recordsDb = await query.get();
+    final records = recordsDb.map((r) {
+      return Record(id: r.id, createAt: r.createdAt);
+    }).toList();
+    return records;
   }
 }

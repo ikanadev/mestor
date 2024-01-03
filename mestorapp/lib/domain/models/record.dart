@@ -7,6 +7,5 @@ class Record with _$Record {
   const factory Record({
     required String id,
     required DateTime createAt,
-    DateTime? deletedAt,
     }) = _Record;
 }

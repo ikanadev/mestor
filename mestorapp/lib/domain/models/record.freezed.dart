@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Record {
   String get id => throw _privateConstructorUsedError;
   DateTime get createAt => throw _privateConstructorUsedError;
-  DateTime? get deletedAt => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RecordCopyWith<Record> get copyWith => throw _privateConstructorUsedError;
@@ -29,7 +28,7 @@ abstract class $RecordCopyWith<$Res> {
   factory $RecordCopyWith(Record value, $Res Function(Record) then) =
       _$RecordCopyWithImpl<$Res, Record>;
   @useResult
-  $Res call({String id, DateTime createAt, DateTime? deletedAt});
+  $Res call({String id, DateTime createAt});
 }
 
 /// @nodoc
@@ -47,7 +46,6 @@ class _$RecordCopyWithImpl<$Res, $Val extends Record>
   $Res call({
     Object? id = null,
     Object? createAt = null,
-    Object? deletedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -58,10 +56,6 @@ class _$RecordCopyWithImpl<$Res, $Val extends Record>
           ? _value.createAt
           : createAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      deletedAt: freezed == deletedAt
-          ? _value.deletedAt
-          : deletedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ) as $Val);
   }
 }
@@ -73,7 +67,7 @@ abstract class _$$RecordImplCopyWith<$Res> implements $RecordCopyWith<$Res> {
       __$$RecordImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, DateTime createAt, DateTime? deletedAt});
+  $Res call({String id, DateTime createAt});
 }
 
 /// @nodoc
@@ -89,7 +83,6 @@ class __$$RecordImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? createAt = null,
-    Object? deletedAt = freezed,
   }) {
     return _then(_$RecordImpl(
       id: null == id
@@ -100,10 +93,6 @@ class __$$RecordImplCopyWithImpl<$Res>
           ? _value.createAt
           : createAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      deletedAt: freezed == deletedAt
-          ? _value.deletedAt
-          : deletedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ));
   }
 }
@@ -111,19 +100,16 @@ class __$$RecordImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RecordImpl implements _Record {
-  const _$RecordImpl(
-      {required this.id, required this.createAt, this.deletedAt});
+  const _$RecordImpl({required this.id, required this.createAt});
 
   @override
   final String id;
   @override
   final DateTime createAt;
-  @override
-  final DateTime? deletedAt;
 
   @override
   String toString() {
-    return 'Record(id: $id, createAt: $createAt, deletedAt: $deletedAt)';
+    return 'Record(id: $id, createAt: $createAt)';
   }
 
   @override
@@ -133,13 +119,11 @@ class _$RecordImpl implements _Record {
             other is _$RecordImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.createAt, createAt) ||
-                other.createAt == createAt) &&
-            (identical(other.deletedAt, deletedAt) ||
-                other.deletedAt == deletedAt));
+                other.createAt == createAt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, createAt, deletedAt);
+  int get hashCode => Object.hash(runtimeType, id, createAt);
 
   @JsonKey(ignore: true)
   @override
@@ -151,15 +135,12 @@ class _$RecordImpl implements _Record {
 abstract class _Record implements Record {
   const factory _Record(
       {required final String id,
-      required final DateTime createAt,
-      final DateTime? deletedAt}) = _$RecordImpl;
+      required final DateTime createAt}) = _$RecordImpl;
 
   @override
   String get id;
   @override
   DateTime get createAt;
-  @override
-  DateTime? get deletedAt;
   @override
   @JsonKey(ignore: true)
   _$$RecordImplCopyWith<_$RecordImpl> get copyWith =>
