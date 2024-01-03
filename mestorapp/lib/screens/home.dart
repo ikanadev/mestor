@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mestorapp/domain/models/models.dart';
-import 'package:mestorapp/domain/types.dart';
 import 'package:mestorapp/providers/providers.dart';
 import 'package:mestorapp/widgets/widgests.dart';
 
@@ -51,21 +49,12 @@ class HomeScreen extends ConsumerWidget {
                   itemCount: acts.length + 1,
                   itemBuilder: (BuildContext context, int index) {
                     if (index == acts.length) {
-                      return ElevatedButton(
-                        child: const Text("Add"),
-                        onPressed: () {
-                          context.push("/new_activity");
-                          return;
-                          ref
-                              .read(activitiesNotifierProvider.notifier)
-                              .saveActivity(
-                                NewActivityData(
-                                  name: 'mmmmmmmmmmmmmmmmmmmM',
-                                  emoji: 'icon name',
-                                  color: ActColor.red,
-                                ),
-                              );
-                        },
+                      return Center(
+                        child: IconButton(
+                          icon: const Icon(Icons.add),
+                          onPressed: () => context.push("/new_activity"),
+                          padding: const EdgeInsets.all(18),
+                        ),
                       );
                     }
                     return ActivityItem(activity: acts[index]);
