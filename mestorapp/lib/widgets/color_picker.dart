@@ -17,7 +17,7 @@ class ColorPickerButton extends StatelessWidget {
       onTap: () {
         showDialog(
           context: context,
-          builder: (_) => ColorPicker(color: color, onSelect: onSelect),
+          builder: (_) => _ColorPicker(color: color, onSelect: onSelect),
         );
       },
       child: Container(
@@ -32,11 +32,11 @@ class ColorPickerButton extends StatelessWidget {
   }
 }
 
-class ColorPicker extends StatelessWidget {
+class _ColorPicker extends StatelessWidget {
   final ActColor color;
   final ValueChanged<ActColor> onSelect;
 
-  const ColorPicker({super.key, required this.color, required this.onSelect});
+  const _ColorPicker({required this.color, required this.onSelect});
 
   void _closeDialog(BuildContext context) {
     Navigator.of(context).pop();
