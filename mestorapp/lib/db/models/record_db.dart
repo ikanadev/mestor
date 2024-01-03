@@ -4,7 +4,7 @@ import 'activity_db.dart';
 
 class RecordDb extends Table {
   TextColumn get id => text()();
-  TextColumn get activity => text().references(ActivityDb, #id)();
+  TextColumn get activityId => text().references(ActivityDb, #id)();
   DateTimeColumn get createdAt => dateTime()();
 
   @override

@@ -353,11 +353,11 @@ class $RecordDbTable extends RecordDb
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _activityMeta =
-      const VerificationMeta('activity');
+  static const VerificationMeta _activityIdMeta =
+      const VerificationMeta('activityId');
   @override
-  late final GeneratedColumn<String> activity = GeneratedColumn<String>(
-      'activity', aliasedName, false,
+  late final GeneratedColumn<String> activityId = GeneratedColumn<String>(
+      'activity_id', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       defaultConstraints:
@@ -369,7 +369,7 @@ class $RecordDbTable extends RecordDb
       'created_at', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, activity, createdAt];
+  List<GeneratedColumn> get $columns => [id, activityId, createdAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -385,11 +385,13 @@ class $RecordDbTable extends RecordDb
     } else if (isInserting) {
       context.missing(_idMeta);
     }
-    if (data.containsKey('activity')) {
-      context.handle(_activityMeta,
-          activity.isAcceptableOrUnknown(data['activity']!, _activityMeta));
+    if (data.containsKey('activity_id')) {
+      context.handle(
+          _activityIdMeta,
+          activityId.isAcceptableOrUnknown(
+              data['activity_id']!, _activityIdMeta));
     } else if (isInserting) {
-      context.missing(_activityMeta);
+      context.missing(_activityIdMeta);
     }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
@@ -408,8 +410,8 @@ class $RecordDbTable extends RecordDb
     return RecordDbData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      activity: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}activity'])!,
+      activityId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}activity_id'])!,
       createdAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
     );
@@ -423,15 +425,15 @@ class $RecordDbTable extends RecordDb
 
 class RecordDbData extends DataClass implements Insertable<RecordDbData> {
   final String id;
-  final String activity;
+  final String activityId;
   final DateTime createdAt;
   const RecordDbData(
-      {required this.id, required this.activity, required this.createdAt});
+      {required this.id, required this.activityId, required this.createdAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
-    map['activity'] = Variable<String>(activity);
+    map['activity_id'] = Variable<String>(activityId);
     map['created_at'] = Variable<DateTime>(createdAt);
     return map;
   }
@@ -439,7 +441,7 @@ class RecordDbData extends DataClass implements Insertable<RecordDbData> {
   RecordDbCompanion toCompanion(bool nullToAbsent) {
     return RecordDbCompanion(
       id: Value(id),
-      activity: Value(activity),
+      activityId: Value(activityId),
       createdAt: Value(createdAt),
     );
   }
@@ -449,7 +451,7 @@ class RecordDbData extends DataClass implements Insertable<RecordDbData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RecordDbData(
       id: serializer.fromJson<String>(json['id']),
-      activity: serializer.fromJson<String>(json['activity']),
+      activityId: serializer.fromJson<String>(json['activityId']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
   }
@@ -458,66 +460,67 @@ class RecordDbData extends DataClass implements Insertable<RecordDbData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
-      'activity': serializer.toJson<String>(activity),
+      'activityId': serializer.toJson<String>(activityId),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
   }
 
-  RecordDbData copyWith({String? id, String? activity, DateTime? createdAt}) =>
+  RecordDbData copyWith(
+          {String? id, String? activityId, DateTime? createdAt}) =>
       RecordDbData(
         id: id ?? this.id,
-        activity: activity ?? this.activity,
+        activityId: activityId ?? this.activityId,
         createdAt: createdAt ?? this.createdAt,
       );
   @override
   String toString() {
     return (StringBuffer('RecordDbData(')
           ..write('id: $id, ')
-          ..write('activity: $activity, ')
+          ..write('activityId: $activityId, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, activity, createdAt);
+  int get hashCode => Object.hash(id, activityId, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is RecordDbData &&
           other.id == this.id &&
-          other.activity == this.activity &&
+          other.activityId == this.activityId &&
           other.createdAt == this.createdAt);
 }
 
 class RecordDbCompanion extends UpdateCompanion<RecordDbData> {
   final Value<String> id;
-  final Value<String> activity;
+  final Value<String> activityId;
   final Value<DateTime> createdAt;
   final Value<int> rowid;
   const RecordDbCompanion({
     this.id = const Value.absent(),
-    this.activity = const Value.absent(),
+    this.activityId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   RecordDbCompanion.insert({
     required String id,
-    required String activity,
+    required String activityId,
     required DateTime createdAt,
     this.rowid = const Value.absent(),
   })  : id = Value(id),
-        activity = Value(activity),
+        activityId = Value(activityId),
         createdAt = Value(createdAt);
   static Insertable<RecordDbData> custom({
     Expression<String>? id,
-    Expression<String>? activity,
+    Expression<String>? activityId,
     Expression<DateTime>? createdAt,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (activity != null) 'activity': activity,
+      if (activityId != null) 'activity_id': activityId,
       if (createdAt != null) 'created_at': createdAt,
       if (rowid != null) 'rowid': rowid,
     });
@@ -525,12 +528,12 @@ class RecordDbCompanion extends UpdateCompanion<RecordDbData> {
 
   RecordDbCompanion copyWith(
       {Value<String>? id,
-      Value<String>? activity,
+      Value<String>? activityId,
       Value<DateTime>? createdAt,
       Value<int>? rowid}) {
     return RecordDbCompanion(
       id: id ?? this.id,
-      activity: activity ?? this.activity,
+      activityId: activityId ?? this.activityId,
       createdAt: createdAt ?? this.createdAt,
       rowid: rowid ?? this.rowid,
     );
@@ -542,8 +545,8 @@ class RecordDbCompanion extends UpdateCompanion<RecordDbData> {
     if (id.present) {
       map['id'] = Variable<String>(id.value);
     }
-    if (activity.present) {
-      map['activity'] = Variable<String>(activity.value);
+    if (activityId.present) {
+      map['activity_id'] = Variable<String>(activityId.value);
     }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
@@ -558,7 +561,7 @@ class RecordDbCompanion extends UpdateCompanion<RecordDbData> {
   String toString() {
     return (StringBuffer('RecordDbCompanion(')
           ..write('id: $id, ')
-          ..write('activity: $activity, ')
+          ..write('activityId: $activityId, ')
           ..write('createdAt: $createdAt, ')
           ..write('rowid: $rowid')
           ..write(')'))
