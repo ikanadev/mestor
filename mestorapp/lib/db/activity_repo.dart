@@ -50,4 +50,13 @@ class ActivityDbRepository extends ActivityRepository {
     }).toList();
     return records;
   }
+
+  @override
+  Future<void> addRecord(String actId) async {
+    await appDb.into(appDb.recordDb).insert(RecordDbCompanion.insert(
+          id: nanoid(),
+          activity: actId,
+          createdAt: DateTime.now(),
+        ));
+  }
 }
