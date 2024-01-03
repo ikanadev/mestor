@@ -12,7 +12,7 @@ class HomeScreen extends ConsumerWidget {
     final actsProv = ref.watch(activitiesNotifierProvider);
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(title: const Text("Mestor")),
+      appBar: AppBar(title: const Text("Mestor"), centerTitle: true),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(

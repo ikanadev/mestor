@@ -12,7 +12,7 @@ class RecordsNotifier extends _$RecordsNotifier {
     return await appRepo.activityRepo.getRecords(actId);
   }
 
-  Future<void> addRecord(String actId) async {
+  Future<void> addRecord() async {
     final appRepo = ref.watch(appRepoProvider);
     await appRepo.activityRepo.addRecord(actId);
     final newRecords = await appRepo.activityRepo.getRecords(actId);

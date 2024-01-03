@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mestorapp/domain/models/models.dart';
+import 'package:mestorapp/providers/providers.dart';
 
 // iroh perhaps kevin
 
-class ActivityItem extends StatelessWidget {
+class ActivityItem extends ConsumerWidget {
   final Activity activity;
-
   const ActivityItem({super.key, required this.activity});
 
-  void handleTap() {
-    print("single tap");
-  }
-
-  void handleLongPress() {
-    print("double tap");
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
+    final recordsProv = ref.watch(recordsNotifierProvider(activity.id));
+
+    void handleAddRecord() {
+      ref.read(recordsNotifierProvider(activity.id).notifier).addRecord();
+    }
+
+    void handleLongPress() {
+      // TODO: implement this
+    }
+
     return GestureDetector(
-      onTap: handleTap,
+      onTap: handleAddRecord,
       onLongPress: handleLongPress,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
@@ -37,7 +40,10 @@ class ActivityItem extends StatelessWidget {
               style: textTheme.bodySmall,
             ),
             Text(activity.emoji, style: textTheme.displaySmall),
-            Text('8', style: textTheme.bodyMedium),
+            recordsProv.maybeWhen(
+              data: (rs) => Text('${rs.length}', style: textTheme.bodyMedium),
+              orElse: () => Text('0', style: textTheme.bodyMedium),
+            ),
           ],
         ),
       ),

@@ -42,7 +42,7 @@ class ActivityDbRepository extends ActivityRepository {
   @override
   Future<List<Record>> getRecords(String actId) async {
     final query = appDb.select(appDb.recordDb);
-    query.where((r) => r.activity.equals(actId));
+    query.where((r) => r.activityId.equals(actId));
 
     final recordsDb = await query.get();
     final records = recordsDb.map((r) {
@@ -55,7 +55,7 @@ class ActivityDbRepository extends ActivityRepository {
   Future<void> addRecord(String actId) async {
     await appDb.into(appDb.recordDb).insert(RecordDbCompanion.insert(
           id: nanoid(),
-          activity: actId,
+          activityId: actId,
           createdAt: DateTime.now(),
         ));
   }
