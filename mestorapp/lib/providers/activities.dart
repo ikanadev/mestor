@@ -17,6 +17,6 @@ class ActivitiesNotifier extends _$ActivitiesNotifier {
     final appRepo = ref.watch(appRepoProvider);
     await appRepo.activityRepo.saveActivity(data);
     final newActivities = await appRepo.activityRepo.getActivities();
-    state = AsyncValue.data(newActivities);
+    state = AsyncData(newActivities);
   }
 }
