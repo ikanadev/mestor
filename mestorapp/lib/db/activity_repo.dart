@@ -11,11 +11,10 @@ class ActivityDbRepository extends ActivityRepository {
 
   @override
   Future<List<Activity>> getActivities() async {
-    /*
     final query = appDb.select(appDb.activityDb);
-    query.where((a) => a.deletedAt.isNotNull());
-    final dbActs = await query.get(); */
-    final dbActs = await (appDb.select(appDb.activityDb)).get();
+    query.where((a) => a.deletedAt.isNull());
+
+    final dbActs = await query.get();
     final acts = dbActs.map((act) {
       return Activity(
         id: act.id,
