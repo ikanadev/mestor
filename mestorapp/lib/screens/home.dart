@@ -61,7 +61,7 @@ class HomeScreen extends ConsumerWidget {
                               .saveActivity(
                                 NewActivityData(
                                   name: 'mmmmmmmmmmmmmmmmmmmM',
-                                  iconName: 'icon name',
+                                  emoji: 'icon name',
                                   color: ActColor.red,
                                 ),
                               );

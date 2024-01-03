@@ -21,7 +21,7 @@ class ActivityDbRepository extends ActivityRepository {
         id: act.id,
         name: act.name,
         color: act.color,
-        iconName: act.iconName,
+        emoji: act.emoji,
         createAt: act.createdAt,
         deletedAt: act.deletedAt,
       );
@@ -35,7 +35,7 @@ class ActivityDbRepository extends ActivityRepository {
           id: nanoid(),
           name: data.name,
           color: data.color,
-          iconName: data.iconName,
+          emoji: data.emoji,
           createdAt: DateTime.now(),
         ));
   }
