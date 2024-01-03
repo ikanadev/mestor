@@ -36,7 +36,7 @@ class ActivityItem extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: textTheme.bodySmall,
             ),
-            Icon(Icons.square, size: 42, color: Colors.grey.shade600),
+            Text(activity.emoji, style: textTheme.displaySmall),
             Text('8', style: textTheme.bodyMedium),
           ],
         ),

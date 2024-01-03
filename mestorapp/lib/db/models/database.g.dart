@@ -87,7 +87,7 @@ class $ActivityDbTable extends ActivityDb
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => const {};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   ActivityDbData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -342,12 +342,237 @@ class ActivityDbCompanion extends UpdateCompanion<ActivityDbData> {
   }
 }
 
+class $RecordDbTable extends RecordDb
+    with TableInfo<$RecordDbTable, RecordDbData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RecordDbTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _activityMeta =
+      const VerificationMeta('activity');
+  @override
+  late final GeneratedColumn<String> activity = GeneratedColumn<String>(
+      'activity', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES activity_db (id)'));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, activity, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'record_db';
+  @override
+  VerificationContext validateIntegrity(Insertable<RecordDbData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('activity')) {
+      context.handle(_activityMeta,
+          activity.isAcceptableOrUnknown(data['activity']!, _activityMeta));
+    } else if (isInserting) {
+      context.missing(_activityMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  RecordDbData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RecordDbData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      activity: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}activity'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $RecordDbTable createAlias(String alias) {
+    return $RecordDbTable(attachedDatabase, alias);
+  }
+}
+
+class RecordDbData extends DataClass implements Insertable<RecordDbData> {
+  final String id;
+  final String activity;
+  final DateTime createdAt;
+  const RecordDbData(
+      {required this.id, required this.activity, required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['activity'] = Variable<String>(activity);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  RecordDbCompanion toCompanion(bool nullToAbsent) {
+    return RecordDbCompanion(
+      id: Value(id),
+      activity: Value(activity),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory RecordDbData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RecordDbData(
+      id: serializer.fromJson<String>(json['id']),
+      activity: serializer.fromJson<String>(json['activity']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'activity': serializer.toJson<String>(activity),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  RecordDbData copyWith({String? id, String? activity, DateTime? createdAt}) =>
+      RecordDbData(
+        id: id ?? this.id,
+        activity: activity ?? this.activity,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('RecordDbData(')
+          ..write('id: $id, ')
+          ..write('activity: $activity, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, activity, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RecordDbData &&
+          other.id == this.id &&
+          other.activity == this.activity &&
+          other.createdAt == this.createdAt);
+}
+
+class RecordDbCompanion extends UpdateCompanion<RecordDbData> {
+  final Value<String> id;
+  final Value<String> activity;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const RecordDbCompanion({
+    this.id = const Value.absent(),
+    this.activity = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  RecordDbCompanion.insert({
+    required String id,
+    required String activity,
+    required DateTime createdAt,
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        activity = Value(activity),
+        createdAt = Value(createdAt);
+  static Insertable<RecordDbData> custom({
+    Expression<String>? id,
+    Expression<String>? activity,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (activity != null) 'activity': activity,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  RecordDbCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? activity,
+      Value<DateTime>? createdAt,
+      Value<int>? rowid}) {
+    return RecordDbCompanion(
+      id: id ?? this.id,
+      activity: activity ?? this.activity,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (activity.present) {
+      map['activity'] = Variable<String>(activity.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecordDbCompanion(')
+          ..write('id: $id, ')
+          ..write('activity: $activity, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $ActivityDbTable activityDb = $ActivityDbTable(this);
+  late final $RecordDbTable recordDb = $RecordDbTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [activityDb];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [activityDb, recordDb];
 }
