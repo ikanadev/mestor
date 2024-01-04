@@ -10,7 +10,7 @@ class ActivityOptionsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Text(act.name),
+      title: Text(act.name, textAlign: TextAlign.center),
       children: [
         SimpleDialogOption(
           child: const Text("Edit"),
