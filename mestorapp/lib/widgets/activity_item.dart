@@ -7,7 +7,12 @@ import 'package:mestorapp/providers/providers.dart';
 
 class ActivityItem extends ConsumerWidget {
   final Activity activity;
-  const ActivityItem({super.key, required this.activity});
+  final void Function(Activity) openActivityMenu;
+  const ActivityItem({
+    super.key,
+    required this.activity,
+    required this.openActivityMenu,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,13 +23,9 @@ class ActivityItem extends ConsumerWidget {
       ref.read(recordsNotifierProvider(activity.id).notifier).addRecord();
     }
 
-    void handleLongPress() {
-      // TODO: implement this
-    }
-
     return GestureDetector(
       onTap: handleAddRecord,
-      onLongPress: handleLongPress,
+      onLongPress: () => openActivityMenu(activity),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
         decoration: BoxDecoration(
