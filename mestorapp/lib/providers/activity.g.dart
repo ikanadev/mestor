@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'records.dart';
+part of 'activity.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$recordsNotifierHash() => r'd91591e8b0ffd9c10f17fdacfe901a83ebddc388';
+String _$activityHash() => r'794d511cec4f46fde712c3df1a60febc97cfb289';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,36 +29,27 @@ class _SystemHash {
   }
 }
 
-abstract class _$RecordsNotifier
-    extends BuildlessAutoDisposeAsyncNotifier<List<Record>> {
-  late final String actId;
+/// See also [activity].
+@ProviderFor(activity)
+const activityProvider = ActivityFamily();
 
-  FutureOr<List<Record>> build(
-    String actId,
-  );
-}
+/// See also [activity].
+class ActivityFamily extends Family<AsyncValue<Activity>> {
+  /// See also [activity].
+  const ActivityFamily();
 
-/// See also [RecordsNotifier].
-@ProviderFor(RecordsNotifier)
-const recordsNotifierProvider = RecordsNotifierFamily();
-
-/// See also [RecordsNotifier].
-class RecordsNotifierFamily extends Family<AsyncValue<List<Record>>> {
-  /// See also [RecordsNotifier].
-  const RecordsNotifierFamily();
-
-  /// See also [RecordsNotifier].
-  RecordsNotifierProvider call(
+  /// See also [activity].
+  ActivityProvider call(
     String actId,
   ) {
-    return RecordsNotifierProvider(
+    return ActivityProvider(
       actId,
     );
   }
 
   @override
-  RecordsNotifierProvider getProviderOverride(
-    covariant RecordsNotifierProvider provider,
+  ActivityProvider getProviderOverride(
+    covariant ActivityProvider provider,
   ) {
     return call(
       provider.actId,
@@ -77,30 +68,31 @@ class RecordsNotifierFamily extends Family<AsyncValue<List<Record>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'recordsNotifierProvider';
+  String? get name => r'activityProvider';
 }
 
-/// See also [RecordsNotifier].
-class RecordsNotifierProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    RecordsNotifier, List<Record>> {
-  /// See also [RecordsNotifier].
-  RecordsNotifierProvider(
+/// See also [activity].
+class ActivityProvider extends AutoDisposeFutureProvider<Activity> {
+  /// See also [activity].
+  ActivityProvider(
     String actId,
   ) : this._internal(
-          () => RecordsNotifier()..actId = actId,
-          from: recordsNotifierProvider,
-          name: r'recordsNotifierProvider',
+          (ref) => activity(
+            ref as ActivityRef,
+            actId,
+          ),
+          from: activityProvider,
+          name: r'activityProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$recordsNotifierHash,
-          dependencies: RecordsNotifierFamily._dependencies,
-          allTransitiveDependencies:
-              RecordsNotifierFamily._allTransitiveDependencies,
+                  : _$activityHash,
+          dependencies: ActivityFamily._dependencies,
+          allTransitiveDependencies: ActivityFamily._allTransitiveDependencies,
           actId: actId,
         );
 
-  RecordsNotifierProvider._internal(
+  ActivityProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -113,20 +105,13 @@ class RecordsNotifierProvider extends AutoDisposeAsyncNotifierProviderImpl<
   final String actId;
 
   @override
-  FutureOr<List<Record>> runNotifierBuild(
-    covariant RecordsNotifier notifier,
+  Override overrideWith(
+    FutureOr<Activity> Function(ActivityRef provider) create,
   ) {
-    return notifier.build(
-      actId,
-    );
-  }
-
-  @override
-  Override overrideWith(RecordsNotifier Function() create) {
     return ProviderOverride(
       origin: this,
-      override: RecordsNotifierProvider._internal(
-        () => create()..actId = actId,
+      override: ActivityProvider._internal(
+        (ref) => create(ref as ActivityRef),
         from: from,
         name: null,
         dependencies: null,
@@ -138,14 +123,13 @@ class RecordsNotifierProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<RecordsNotifier, List<Record>>
-      createElement() {
-    return _RecordsNotifierProviderElement(this);
+  AutoDisposeFutureProviderElement<Activity> createElement() {
+    return _ActivityProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is RecordsNotifierProvider && other.actId == actId;
+    return other is ActivityProvider && other.actId == actId;
   }
 
   @override
@@ -157,18 +141,17 @@ class RecordsNotifierProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 }
 
-mixin RecordsNotifierRef on AutoDisposeAsyncNotifierProviderRef<List<Record>> {
+mixin ActivityRef on AutoDisposeFutureProviderRef<Activity> {
   /// The parameter `actId` of this provider.
   String get actId;
 }
 
-class _RecordsNotifierProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<RecordsNotifier,
-        List<Record>> with RecordsNotifierRef {
-  _RecordsNotifierProviderElement(super.provider);
+class _ActivityProviderElement
+    extends AutoDisposeFutureProviderElement<Activity> with ActivityRef {
+  _ActivityProviderElement(super.provider);
 
   @override
-  String get actId => (origin as RecordsNotifierProvider).actId;
+  String get actId => (origin as ActivityProvider).actId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

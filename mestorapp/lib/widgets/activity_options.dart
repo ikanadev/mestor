@@ -15,7 +15,8 @@ class ActivityOptionsDialog extends StatelessWidget {
         SimpleDialogOption(
           child: const Text("Edit"),
           onPressed: () {
-            context.push("/new_activity");
+            context.pop();
+            context.push("/edit_activity/${act.id}");
           },
         ),
         SimpleDialogOption(
