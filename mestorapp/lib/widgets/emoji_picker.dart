@@ -21,12 +21,16 @@ class EmojiPickerButton extends StatelessWidget {
         );
       },
       child: Container(
-        width: 38,
-        height: 38,
+        width: 42,
+        height: 42,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(2)),
         ),
-        child: Text(emoji.emoji, textAlign: TextAlign.center, style: Theme.of(context).textTheme.displaySmall),
+        child: Text(
+          emoji.emoji,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 30),
+        ),
       ),
     );
   }
@@ -46,12 +50,13 @@ class _EmojiPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Pick an emoji'),
+      insetPadding: const EdgeInsets.all(2),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            height: 400,
-            width: 400,
+            height: 500,
+            width: 900,
             child: EmojiPicker(
               onEmojiSelected: (cat, emoji) {
                 onEmojiPicked(emoji);

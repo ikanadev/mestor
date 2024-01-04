@@ -67,7 +67,7 @@ class _NewActivity extends ConsumerState<NewActivity> {
                   controller: _nameCont,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -75,7 +75,7 @@ class _NewActivity extends ConsumerState<NewActivity> {
                   ColorPickerButton(color: _color, onSelect: _setColor),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
