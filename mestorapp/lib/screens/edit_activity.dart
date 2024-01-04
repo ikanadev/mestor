@@ -8,29 +8,43 @@ import 'package:mestorapp/providers/providers.dart';
 import 'package:mestorapp/utils/utils.dart';
 import 'package:mestorapp/widgets/widgests.dart';
 
-class NewActivity extends ConsumerStatefulWidget {
-  const NewActivity({super.key});
+class EditActivity extends ConsumerStatefulWidget {
+  final String actId;
+  const EditActivity({super.key, required this.actId});
 
   @override
-  ConsumerState<NewActivity> createState() => _NewActivity();
+  ConsumerState<EditActivity> createState() => _EditActivity();
 }
 
-class _NewActivity extends ConsumerState<NewActivity> {
+class _EditActivity extends ConsumerState<EditActivity> {
   final _formKey = GlobalKey<FormState>();
   final _nameCont = TextEditingController();
-  ActColor _color = ActColor.red;
-  Emoji _emoji = const Emoji('❓', 'Question Mark');
+  ActColor _color = ActColor.grey;
+  Emoji _emoji = const Emoji("", "");
 
-  void _handleSave() {
+  @override
+  void initState() {
+    super.initState();
+    ref.read(activityProvider(widget.actId).future).then((act) {
+      _nameCont.text = act.name;
+      setState(() {
+        _color = act.color;
+        _emoji = Emoji(act.emoji, "");
+      });
+    });
+  }
+
+  void _handleEdit() {
     if (_formKey.currentState == null || !_formKey.currentState!.validate()) {
       return;
     }
-    final actData = NewActivityData(
+    final actData = EditActivityData(
+      id: widget.actId,
       color: _color,
       name: _nameCont.text,
       emoji: _emoji.emoji,
     );
-    ref.read(activitiesNotifierProvider.notifier).saveActivity(actData);
+    ref.read(activitiesNotifierProvider.notifier).editActivity(actData);
     context.pop();
   }
 
@@ -46,7 +60,7 @@ class _NewActivity extends ConsumerState<NewActivity> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("New Activity"),
+        title: const Text("Edit Activity"),
         centerTitle: true,
       ),
       body: Center(
@@ -84,7 +98,7 @@ class _NewActivity extends ConsumerState<NewActivity> {
                 ],
               ),
               const SizedBox(height: 28),
-              ElevatedButton(onPressed: _handleSave, child: const Text("Save")),
+              ElevatedButton(onPressed: _handleEdit, child: const Text("Save")),
             ],
           ),
         ),

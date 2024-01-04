@@ -7,7 +7,7 @@ part of 'activities.dart';
 // **************************************************************************
 
 String _$activitiesNotifierHash() =>
-    r'a6feb838c5af1819bb676f3a7479ee403684e615';
+    r'8919cc7185f86b689165e58a9d22b510f5acc4dd';
 
 /// See also [ActivitiesNotifier].
 @ProviderFor(ActivitiesNotifier)

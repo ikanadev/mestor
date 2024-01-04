@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/providers/providers.dart';
 import 'package:mestorapp/widgets/widgests.dart';
 
@@ -11,6 +12,14 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final actsProv = ref.watch(activitiesNotifierProvider);
     final textTheme = Theme.of(context).textTheme;
+
+    void openActivityMenu(Activity act) {
+      showDialog(
+        context: context,
+        builder: (_) => ActivityOptionsDialog(act: act),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(title: const Text("Mestor"), centerTitle: true),
       body: Container(
@@ -57,7 +66,10 @@ class HomeScreen extends ConsumerWidget {
                         ),
                       );
                     }
-                    return ActivityItem(activity: acts[index]);
+                    return ActivityItem(
+                      activity: acts[index],
+                      openActivityMenu: openActivityMenu,
+                    );
                   },
                 ),
               ),

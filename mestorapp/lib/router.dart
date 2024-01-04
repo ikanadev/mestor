@@ -12,5 +12,9 @@ final router = GoRouter(
       path: "/new_activity",
       builder: (ctx, state) => const NewActivity(),
     ),
+    GoRoute(
+      path: "/edit_activity/:id",
+      builder: (ctx, state) => EditActivity(actId: state.pathParameters["id"]!),
+    ),
   ],
 );

@@ -1,8 +1,9 @@
-import 'package:nanoid2/nanoid2.dart';
+import 'package:drift/drift.dart';
 import 'package:mestorapp/db/models/models.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/domain/repositories.dart';
 import 'package:mestorapp/domain/types.dart';
+import 'package:nanoid2/nanoid2.dart';
 
 class ActivityDbRepository extends ActivityRepository {
   final AppDatabase appDb;
@@ -37,6 +38,17 @@ class ActivityDbRepository extends ActivityRepository {
           emoji: data.emoji,
           createdAt: DateTime.now(),
         ));
+  }
+
+  @override
+  Future<void> editActivity(EditActivityData data) async {
+    final toUpdate = appDb.update(appDb.activityDb)
+      ..where((a) => a.id.equals(data.id));
+    await toUpdate.write(ActivityDbCompanion(
+      name: Value(data.name),
+      emoji: Value(data.emoji),
+      color: Value(data.color),
+    ));
   }
 
   @override
