@@ -1,5 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:mestorapp/domain/models/models.dart';
+
+enum ActColor {
+  pink,
+  red,
+  orange,
+  deepOrange,
+  amber,
+  yellow,
+  lime,
+  lightGreen,
+  green,
+  teal,
+  cyan,
+  lightBlue,
+  blue,
+  indigo,
+  purple,
+  deepPurple,
+  blueGrey,
+  brown,
+  grey,
+}
 
 final Map<ActColor, Color> _colorsMap = {
   ActColor.pink: Colors.pink,
@@ -23,7 +44,7 @@ final Map<ActColor, Color> _colorsMap = {
   ActColor.grey: Colors.grey,
 };
 
-Color getCatColor({required ActColor color}) {
+Color getActColor({required ActColor color}) {
   Color matColor = _colorsMap[color] ?? Colors.grey;
   return matColor;
 }

@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:mestorapp/domain/models/models.dart';
+import 'package:mestorapp/domain/domain.dart';
 
 class ActivityDb extends Table {
   TextColumn get id => text()();

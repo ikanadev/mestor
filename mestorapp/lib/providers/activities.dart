@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mestorapp/domain/models/models.dart';
-import 'package:mestorapp/domain/types.dart';
 
 import 'app_repo.dart';
 

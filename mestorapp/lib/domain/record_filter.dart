@@ -1,6 +1,15 @@
-import 'package:mestorapp/domain/models/models.dart';
+enum RecordFilter {
+  today,
+  thisWeek,
+  lastWeek,
+  thisMonth,
+  lastMonth,
+  thisYear,
+  lastYear,
+  allTime,
+}
 
-String getLabel(RecordFilter filter) {
+String getRecordFilterLabel(RecordFilter filter) {
   switch (filter) {
     case RecordFilter.today:
       return "today";

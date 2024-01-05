@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'colors.dart';
+import 'package:mestorapp/domain/domain.dart';
 
 part 'activity.freezed.dart';
 
@@ -13,4 +13,28 @@ class Activity with _$Activity {
     required DateTime createAt,
     DateTime? deletedAt,
     }) = _Activity;
+}
+
+class NewActivityData {
+  final String name;
+  final String emoji;
+  final ActColor color;
+  NewActivityData({
+    required this.name,
+    required this.emoji,
+    required this.color,
+  });
+}
+
+class EditActivityData {
+  final String id;
+  final String name;
+  final String emoji;
+  final ActColor color;
+  EditActivityData({
+    required this.id,
+    required this.name,
+    required this.emoji,
+    required this.color,
+  });
 }
