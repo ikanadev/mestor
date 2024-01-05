@@ -18,4 +18,11 @@ class RecordsNotifier extends _$RecordsNotifier {
     final newRecords = await appRepo.activityRepo.getRecords(actId);
     state = AsyncData(newRecords);
   }
+
+  Future<void> removeLastRecord() async {
+    final appRepo = ref.watch(appRepoProvider);
+    await appRepo.activityRepo.removeLastRecord(actId);
+    final newRecords = await appRepo.activityRepo.getRecords(actId);
+    state = AsyncData(newRecords);
+  }
 }
