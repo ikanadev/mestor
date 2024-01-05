@@ -1,10 +1,12 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mestorapp/domain/models/models.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'record_filter.g.dart';
+final recordFilterProvider =
+    NotifierProvider<RecordFilterNotifier, RecordFilter>(() {
+  return RecordFilterNotifier();
+});
 
-@riverpod
-class RecordFilterNotifier extends _$RecordFilterNotifier {
+class RecordFilterNotifier extends Notifier<RecordFilter> {
   @override
   RecordFilter build() {
     return RecordFilter.today;

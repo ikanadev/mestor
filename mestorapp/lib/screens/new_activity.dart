@@ -30,7 +30,7 @@ class _NewActivity extends ConsumerState<NewActivity> {
       name: _nameCont.text,
       emoji: _emoji.emoji,
     );
-    ref.read(activitiesNotifierProvider.notifier).saveActivity(actData);
+    ref.read(activitiesProvider.notifier).saveActivity(actData);
     context.pop();
   }
 

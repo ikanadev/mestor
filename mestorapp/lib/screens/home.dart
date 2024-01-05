@@ -11,8 +11,8 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final actsProv = ref.watch(activitiesNotifierProvider);
-    final recordFilter = ref.watch(recordFilterNotifierProvider);
+    final actsProv = ref.watch(activitiesProvider);
+    final recordFilter = ref.watch(recordFilterProvider);
     final textTheme = Theme.of(context).textTheme;
 
     void openActivityMenu(Activity act) {
@@ -24,7 +24,7 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(12),
+        preferredSize: const Size.fromHeight(18),
         child: AppBar(
           title: Text("MESTOR", style: textTheme.bodySmall),
           centerTitle: true,

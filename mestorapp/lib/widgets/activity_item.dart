@@ -17,10 +17,10 @@ class ActivityItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
-    final recordsProv = ref.watch(recordsNotifierProvider(activity.id));
+    final recordsProv = ref.watch(recordsProvider(activity.id));
 
     void handleAddRecord() {
-      ref.read(recordsNotifierProvider(activity.id).notifier).addRecord();
+      ref.read(recordsProvider(activity.id).notifier).addRecord();
     }
 
     return GestureDetector(

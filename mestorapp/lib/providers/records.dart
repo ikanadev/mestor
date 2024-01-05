@@ -1,28 +1,33 @@
+import 'dart:async';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mestorapp/domain/models/models.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'app_repo.dart';
 
-part 'records.g.dart';
+final recordsProvider =
+    AsyncNotifierProvider.family<AsyncRecordsNotifier, List<Record>, String>(
+        () {
+  return AsyncRecordsNotifier();
+});
 
-@riverpod
-class RecordsNotifier extends _$RecordsNotifier {
+class AsyncRecordsNotifier extends FamilyAsyncNotifier<List<Record>, String> {
   @override
-  Future<List<Record>> build(String actId) async {
+  Future<List<Record>> build(arg) async {
     final appRepo = ref.watch(appRepoProvider);
-    return await appRepo.activityRepo.getRecords(actId);
+    return await appRepo.activityRepo.getRecords(arg);
   }
 
   Future<void> addRecord() async {
     final appRepo = ref.watch(appRepoProvider);
-    await appRepo.activityRepo.addRecord(actId);
-    final newRecords = await appRepo.activityRepo.getRecords(actId);
+    await appRepo.activityRepo.addRecord(arg);
+    final newRecords = await appRepo.activityRepo.getRecords(arg);
     state = AsyncData(newRecords);
   }
 
   Future<void> removeLastRecord() async {
     final appRepo = ref.watch(appRepoProvider);
-    await appRepo.activityRepo.removeLastRecord(actId);
-    final newRecords = await appRepo.activityRepo.getRecords(actId);
+    await appRepo.activityRepo.removeLastRecord(arg);
+    final newRecords = await appRepo.activityRepo.getRecords(arg);
     state = AsyncData(newRecords);
   }
 }

@@ -44,7 +44,7 @@ class _EditActivity extends ConsumerState<EditActivity> {
       name: _nameCont.text,
       emoji: _emoji.emoji,
     );
-    ref.read(activitiesNotifierProvider.notifier).editActivity(actData);
+    ref.read(activitiesProvider.notifier).editActivity(actData);
     context.pop();
   }
 

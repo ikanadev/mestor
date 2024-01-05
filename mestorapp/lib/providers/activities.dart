@@ -1,13 +1,15 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/domain/types.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'app_repo.dart';
 
-part 'activities.g.dart';
+final activitiesProvider =
+    AsyncNotifierProvider<AsyncActivitiesNotifier, List<Activity>>(() {
+  return AsyncActivitiesNotifier();
+});
 
-@riverpod
-class ActivitiesNotifier extends _$ActivitiesNotifier {
+class AsyncActivitiesNotifier extends AsyncNotifier<List<Activity>> {
   @override
   Future<List<Activity>> build() async {
     final appRepo = ref.watch(appRepoProvider);

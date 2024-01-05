@@ -28,7 +28,7 @@ class ActivityOptionsDialog extends ConsumerWidget {
               style: TextStyle(color: Colors.redAccent)),
           onPressed: () {
             ref
-                .read(recordsNotifierProvider(act.id).notifier)
+                .read(recordsProvider(act.id).notifier)
                 .removeLastRecord()
                 .then((_) {
               context.pop();
