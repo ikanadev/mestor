@@ -2,8 +2,8 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mestorapp/domain/domain.dart';
 import 'package:mestorapp/domain/models/models.dart';
-import 'package:mestorapp/domain/types.dart';
 import 'package:mestorapp/providers/providers.dart';
 import 'package:mestorapp/utils/utils.dart';
 import 'package:mestorapp/widgets/widgests.dart';
@@ -30,7 +30,7 @@ class _NewActivity extends ConsumerState<NewActivity> {
       name: _nameCont.text,
       emoji: _emoji.emoji,
     );
-    ref.read(activitiesNotifierProvider.notifier).saveActivity(actData);
+    ref.read(activitiesProvider.notifier).saveActivity(actData);
     context.pop();
   }
 

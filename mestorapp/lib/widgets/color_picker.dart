@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mestorapp/domain/models/models.dart';
-import 'package:mestorapp/utils/utils.dart';
+import 'package:mestorapp/domain/domain.dart';
 
 class ColorPickerButton extends StatelessWidget {
   const ColorPickerButton({
@@ -24,7 +23,7 @@ class ColorPickerButton extends StatelessWidget {
         width: 38,
         height: 25,
         decoration: BoxDecoration(
-          color: getCatColor(color: color),
+          color: getActColor(color: color),
           borderRadius: const BorderRadius.all(Radius.circular(2)),
         ),
       ),
@@ -68,7 +67,7 @@ class _ColorPicker extends StatelessWidget {
                         onTap: () => _pickColor(context, catCol),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: getCatColor(color: catCol),
+                            color: getActColor(color: catCol),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(2)),
                           ),

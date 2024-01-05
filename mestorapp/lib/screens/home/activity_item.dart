@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/providers/providers.dart';
 
-// iroh perhaps kevin
-
 class ActivityItem extends ConsumerWidget {
   final Activity activity;
   final void Function(Activity) openActivityMenu;
@@ -17,10 +15,10 @@ class ActivityItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
-    final recordsProv = ref.watch(recordsNotifierProvider(activity.id));
+    final recordsProv = ref.watch(recordsProvider(activity.id));
 
     void handleAddRecord() {
-      ref.read(recordsNotifierProvider(activity.id).notifier).addRecord();
+      ref.read(recordsProvider(activity.id).notifier).addRecord();
     }
 
     return GestureDetector(

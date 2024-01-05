@@ -1,28 +1,48 @@
+import 'dart:async';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mestorapp/domain/domain.dart';
 import 'package:mestorapp/domain/models/models.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'app_repo.dart';
+import 'record_filter.dart';
 
-part 'records.g.dart';
+final recordsProvider =
+    AsyncNotifierProvider.family<AsyncRecordsNotifier, List<Record>, String>(
+        () {
+  return AsyncRecordsNotifier();
+});
 
-@riverpod
-class RecordsNotifier extends _$RecordsNotifier {
-  @override
-  Future<List<Record>> build(String actId) async {
-    final appRepo = ref.watch(appRepoProvider);
-    return await appRepo.activityRepo.getRecords(actId);
-  }
-
+class AsyncRecordsNotifier extends FamilyAsyncNotifier<List<Record>, String> {
   Future<void> addRecord() async {
     final appRepo = ref.watch(appRepoProvider);
-    await appRepo.activityRepo.addRecord(actId);
-    final newRecords = await appRepo.activityRepo.getRecords(actId);
+    final recordFilter = ref.watch(recordFilterProvider);
+    await appRepo.activityRepo.addRecord(arg);
+    final newRecords = await appRepo.activityRepo.getRecords(
+      arg,
+      range: DateTimeRange.fromRecordFilter(recordFilter),
+    );
     state = AsyncData(newRecords);
+  }
+
+  @override
+  Future<List<Record>> build(arg) async {
+    final appRepo = ref.watch(appRepoProvider);
+    final recordFilter = ref.watch(recordFilterProvider);
+    return await appRepo.activityRepo.getRecords(
+      arg,
+      range: DateTimeRange.fromRecordFilter(recordFilter),
+    );
   }
 
   Future<void> removeLastRecord() async {
     final appRepo = ref.watch(appRepoProvider);
-    await appRepo.activityRepo.removeLastRecord(actId);
-    final newRecords = await appRepo.activityRepo.getRecords(actId);
+    final recordFilter = ref.watch(recordFilterProvider);
+    await appRepo.activityRepo.removeLastRecord(arg);
+    final newRecords = await appRepo.activityRepo.getRecords(
+      arg,
+      range: DateTimeRange.fromRecordFilter(recordFilter),
+    );
     state = AsyncData(newRecords);
   }
 }

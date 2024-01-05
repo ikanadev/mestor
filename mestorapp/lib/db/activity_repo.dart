@@ -1,14 +1,33 @@
 import 'package:drift/drift.dart';
 import 'package:mestorapp/db/models/models.dart';
+import 'package:mestorapp/domain/domain.dart';
 import 'package:mestorapp/domain/models/models.dart';
-import 'package:mestorapp/domain/repositories.dart';
-import 'package:mestorapp/domain/types.dart';
 import 'package:nanoid2/nanoid2.dart';
 
 class ActivityDbRepository extends ActivityRepository {
   final AppDatabase appDb;
 
   ActivityDbRepository({required this.appDb});
+
+  @override
+  Future<void> addRecord(actId) async {
+    await appDb.into(appDb.recordDb).insert(RecordDbCompanion.insert(
+          id: nanoid(),
+          activityId: actId,
+          createdAt: DateTime.now(),
+        ));
+  }
+
+  @override
+  Future<void> editActivity(data) async {
+    final toUpdate = appDb.update(appDb.activityDb)
+      ..where((a) => a.id.equals(data.id));
+    await toUpdate.write(ActivityDbCompanion(
+      name: Value(data.name),
+      emoji: Value(data.emoji),
+      color: Value(data.color),
+    ));
+  }
 
   @override
   Future<List<Activity>> getActivities() async {
@@ -30,31 +49,13 @@ class ActivityDbRepository extends ActivityRepository {
   }
 
   @override
-  Future<void> saveActivity(NewActivityData data) async {
-    await appDb.into(appDb.activityDb).insert(ActivityDbCompanion.insert(
-          id: nanoid(),
-          name: data.name,
-          color: data.color,
-          emoji: data.emoji,
-          createdAt: DateTime.now(),
-        ));
-  }
-
-  @override
-  Future<void> editActivity(EditActivityData data) async {
-    final toUpdate = appDb.update(appDb.activityDb)
-      ..where((a) => a.id.equals(data.id));
-    await toUpdate.write(ActivityDbCompanion(
-      name: Value(data.name),
-      emoji: Value(data.emoji),
-      color: Value(data.color),
-    ));
-  }
-
-  @override
-  Future<List<Record>> getRecords(String actId) async {
+  Future<List<Record>> getRecords(actId, {required range}) async {
     final query = appDb.select(appDb.recordDb);
-    query.where((r) => r.activityId.equals(actId));
+    query.where(
+      (r) =>
+          r.activityId.equals(actId) &
+          r.createdAt.isBetweenValues(range.start, range.end),
+    );
 
     final recordsDb = await query.get();
     final records = recordsDb.map((r) {
@@ -64,16 +65,7 @@ class ActivityDbRepository extends ActivityRepository {
   }
 
   @override
-  Future<void> addRecord(String actId) async {
-    await appDb.into(appDb.recordDb).insert(RecordDbCompanion.insert(
-          id: nanoid(),
-          activityId: actId,
-          createdAt: DateTime.now(),
-        ));
-  }
-
-  @override
-  Future<void> removeLastRecord(String actId) async {
+  Future<void> removeLastRecord(actId) async {
     final records = await (appDb.select(appDb.recordDb)
           ..where((r) => r.activityId.equals(actId))
           ..orderBy(
@@ -84,5 +76,16 @@ class ActivityDbRepository extends ActivityRepository {
     final toDelete = appDb.delete(appDb.recordDb)
       ..where((r) => r.id.equals(records[records.length - 1].id));
     await toDelete.go();
+  }
+
+  @override
+  Future<void> saveActivity(data) async {
+    await appDb.into(appDb.activityDb).insert(ActivityDbCompanion.insert(
+          id: nanoid(),
+          name: data.name,
+          color: data.color,
+          emoji: data.emoji,
+          createdAt: DateTime.now(),
+        ));
   }
 }
