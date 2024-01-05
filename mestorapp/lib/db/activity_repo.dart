@@ -71,4 +71,18 @@ class ActivityDbRepository extends ActivityRepository {
           createdAt: DateTime.now(),
         ));
   }
+
+  @override
+  Future<void> removeLastRecord(String actId) async {
+    final records = await (appDb.select(appDb.recordDb)
+          ..where((r) => r.activityId.equals(actId))
+          ..orderBy(
+            [(r) => OrderingTerm(expression: r.createdAt)],
+          ))
+        .get();
+    if (records.isEmpty) return;
+    final toDelete = appDb.delete(appDb.recordDb)
+      ..where((r) => r.id.equals(records[records.length - 1].id));
+    await toDelete.go();
+  }
 }
