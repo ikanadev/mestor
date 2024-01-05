@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/providers/providers.dart';
+import 'package:mestorapp/utils/utils.dart';
 import 'package:mestorapp/widgets/widgests.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -11,6 +12,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final actsProv = ref.watch(activitiesNotifierProvider);
+    final recordFilter = ref.watch(recordFilterNotifierProvider);
     final textTheme = Theme.of(context).textTheme;
 
     void openActivityMenu(Activity act) {
@@ -21,17 +23,29 @@ class HomeScreen extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Mestor"), centerTitle: true),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(12),
+        child: AppBar(
+          title: Text("MESTOR", style: textTheme.bodySmall),
+          centerTitle: true,
+        ),
+      ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              "What you did today?",
+              "What you did",
               textAlign: TextAlign.center,
               style: textTheme.headlineMedium,
             ),
+            Text(
+              getLabel(recordFilter),
+              textAlign: TextAlign.center,
+              style: textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -43,7 +57,7 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 8),
             actsProv.when(
               error: (error, _) => Text('$error'),
               loading: () => const CircularProgressIndicator(),
