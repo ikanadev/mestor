@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mestorapp/domain/domain.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/providers/providers.dart';
+import 'package:mestorapp/screens/home/title_filter.dart';
 import 'package:mestorapp/widgets/widgests.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -12,7 +12,6 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final actsProv = ref.watch(activitiesProvider);
-    final recordFilter = ref.watch(recordFilterProvider);
     final textTheme = Theme.of(context).textTheme;
 
     void openActivityMenu(Activity act) {
@@ -40,28 +39,7 @@ class HomeScreen extends ConsumerWidget {
               textAlign: TextAlign.center,
               style: textTheme.titleMedium,
             ),
-            Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: Colors.grey.withAlpha(150),
-                    width: 1,
-                  ),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 0),
-                child: InkWell(
-                  onTap: () {
-                    print('TAP');
-                  },
-                  child: Text(
-                    "${getRecordFilterLabel(recordFilter)}?",
-                    textAlign: TextAlign.center,
-                    style: textTheme.headlineMedium?.copyWith(height: 0),
-                  ),
-                ),
-              ),
-            ),
+            const TitleFilter(),
             const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

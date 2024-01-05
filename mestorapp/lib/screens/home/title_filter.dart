@@ -23,15 +23,37 @@ class TitleFilter extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 0),
         child: InkWell(
           onTap: () {
-            print('TAP');
+            showDialog(
+              context: context,
+              builder: (build) => _RecordFilterOptions(),
+            );
           },
           child: Text(
-            "${getRecordFilterLabel(recordFilter)}?",
+            "${recordFilter.label.toLowerCase()}?",
             textAlign: TextAlign.center,
             style: textTheme.headlineMedium?.copyWith(height: 0),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _RecordFilterOptions extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SimpleDialog(
+      title: const Text("Filter"),
+      children: [
+        for (final filter in RecordFilter.values)
+          SimpleDialogOption(
+            child: Text(filter.label),
+            onPressed: () {
+              ref.read(recordFilterProvider.notifier).setRecordFilter(filter);
+              Navigator.of(context).pop();
+            },
+          ),
+      ],
     );
   }
 }
