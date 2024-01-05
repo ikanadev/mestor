@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/providers/providers.dart';
 
-// iroh perhaps kevin
-
 class ActivityItem extends ConsumerWidget {
   final Activity activity;
   final void Function(Activity) openActivityMenu;

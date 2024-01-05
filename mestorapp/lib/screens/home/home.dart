@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/providers/providers.dart';
-import 'package:mestorapp/screens/home/title_filter.dart';
 import 'package:mestorapp/widgets/widgests.dart';
+
+import 'activity_item.dart';
+import 'title_filter.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
