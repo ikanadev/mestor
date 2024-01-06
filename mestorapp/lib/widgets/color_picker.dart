@@ -23,7 +23,7 @@ class ColorPickerButton extends StatelessWidget {
         width: 38,
         height: 25,
         decoration: BoxDecoration(
-          color: getActColor(color: color),
+          color: color.color,
           borderRadius: const BorderRadius.all(Radius.circular(2)),
         ),
       ),
@@ -67,7 +67,7 @@ class _ColorPicker extends StatelessWidget {
                         onTap: () => _pickColor(context, catCol),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: getActColor(color: catCol),
+                            color: catCol.color,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(2)),
                           ),

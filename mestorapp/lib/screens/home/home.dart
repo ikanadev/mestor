@@ -61,10 +61,10 @@ class HomeScreen extends ConsumerWidget {
               data: (acts) => Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
+                    maxCrossAxisExtent: 180,
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
-                    mainAxisExtent: 90,
+                    mainAxisExtent: 80,
                   ),
                   itemCount: acts.length + 1,
                   itemBuilder: (BuildContext context, int index) {

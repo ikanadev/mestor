@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mestorapp/domain/domain.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/providers/providers.dart';
 
@@ -28,20 +29,32 @@ class ActivityItem extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          border: Border.all(color: Colors.white70, width: 1),
+          color: activity.color.backgroundColor,
+          border: Border.all(color: activity.color.borderColor, width: 1.5),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
               activity.name,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: textTheme.bodySmall,
+              style: textTheme.labelMedium,
+              textAlign: TextAlign.center,
             ),
-            Text(activity.emoji, style: textTheme.displaySmall),
-            recordsProv.maybeWhen(
-              data: (rs) => Text('${rs.length}', style: textTheme.bodyMedium),
-              orElse: () => Text('0', style: textTheme.bodyMedium),
+            const SizedBox(height: 4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(activity.emoji, style: textTheme.displaySmall),
+                Text(
+                  recordsProv.maybeWhen(
+                    data: (rs) => rs.length.toString(),
+                    orElse: () => '-',
+                  ),
+                  style: textTheme.displaySmall,
+                ),
+              ],
             ),
           ],
         ),

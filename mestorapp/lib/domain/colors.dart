@@ -1,27 +1,5 @@
 import 'package:flutter/material.dart';
 
-enum ActColor {
-  pink,
-  red,
-  orange,
-  deepOrange,
-  amber,
-  yellow,
-  lime,
-  lightGreen,
-  green,
-  teal,
-  cyan,
-  lightBlue,
-  blue,
-  indigo,
-  purple,
-  deepPurple,
-  blueGrey,
-  brown,
-  grey,
-}
-
 final Map<ActColor, Color> _colorsMap = {
   ActColor.pink: Colors.pink,
   ActColor.red: Colors.red,
@@ -44,7 +22,39 @@ final Map<ActColor, Color> _colorsMap = {
   ActColor.grey: Colors.grey,
 };
 
-Color getActColor({required ActColor color}) {
-  Color matColor = _colorsMap[color] ?? Colors.grey;
-  return matColor;
+enum ActColor {
+  pink,
+  red,
+  orange,
+  deepOrange,
+  amber,
+  yellow,
+  lime,
+  lightGreen,
+  green,
+  teal,
+  cyan,
+  lightBlue,
+  blue,
+  indigo,
+  purple,
+  deepPurple,
+  blueGrey,
+  brown,
+  grey,
+}
+
+extension ActColorExtension on ActColor {
+  Color get backgroundColor {
+    final matchColor = _colorsMap[this] ?? Colors.grey;
+    return matchColor.withAlpha(20);
+  }
+  Color get borderColor {
+    final matchColor = _colorsMap[this] ?? Colors.grey;
+    return matchColor.withAlpha(180);
+  }
+  Color get color {
+    final matchColor = _colorsMap[this] ?? Colors.grey;
+    return matchColor;
+  }
 }
