@@ -65,7 +65,7 @@ class ActivityOptionsDialog extends ConsumerWidget {
             style: TextStyle(color: Colors.redAccent),
           ),
         ),
-        const SizedBox(height: 12),
+        const Divider(),
         SimpleDialogOption(
           child: const Text("Close"),
           onPressed: () => context.pop(),
