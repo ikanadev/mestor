@@ -15,9 +15,9 @@ class AsyncActivitiesNotifier extends AsyncNotifier<List<Activity>> {
     return await appRepo.activityRepo.getActivities();
   }
 
-  Future<void> saveActivity(NewActivityData data) async {
+  Future<void> deleteActivity(String actId) async {
     final appRepo = ref.watch(appRepoProvider);
-    await appRepo.activityRepo.saveActivity(data);
+    await appRepo.activityRepo.deleteActivity(actId);
     final newActivities = await appRepo.activityRepo.getActivities();
     state = AsyncData(newActivities);
   }
@@ -25,6 +25,13 @@ class AsyncActivitiesNotifier extends AsyncNotifier<List<Activity>> {
   Future<void> editActivity(EditActivityData data) async {
     final appRepo = ref.watch(appRepoProvider);
     await appRepo.activityRepo.editActivity(data);
+    final newActivities = await appRepo.activityRepo.getActivities();
+    state = AsyncData(newActivities);
+  }
+
+  Future<void> saveActivity(NewActivityData data) async {
+    final appRepo = ref.watch(appRepoProvider);
+    await appRepo.activityRepo.saveActivity(data);
     final newActivities = await appRepo.activityRepo.getActivities();
     state = AsyncData(newActivities);
   }

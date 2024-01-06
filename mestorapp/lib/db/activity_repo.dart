@@ -10,6 +10,15 @@ class ActivityDbRepository extends ActivityRepository {
   ActivityDbRepository({required this.appDb});
 
   @override
+  Future<void> deleteActivity(String actId) async {
+    final toDelete = appDb.update(appDb.activityDb)
+      ..where((a) => a.id.equals(actId));
+    await toDelete.write(ActivityDbCompanion(
+      deletedAt: Value(DateTime.now()),
+    ));
+  }
+
+  @override
   Future<void> editActivity(data) async {
     final toUpdate = appDb.update(appDb.activityDb)
       ..where((a) => a.id.equals(data.id));

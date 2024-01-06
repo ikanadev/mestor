@@ -5,6 +5,7 @@ abstract class ActivityRepository {
   Future<List<Activity>> getActivities();
   Future<void> saveActivity(NewActivityData data);
   Future<void> editActivity(EditActivityData data);
+  Future<void> deleteActivity(String actId);
 }
 
 abstract class RecordRepository {
