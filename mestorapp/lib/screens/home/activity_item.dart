@@ -23,7 +23,7 @@ class ActivityItem extends ConsumerWidget {
     }
 
     return GestureDetector(
-      onTap: handleAddRecord,
+      onDoubleTap: handleAddRecord,
       onLongPress: () => openActivityMenu(activity),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),

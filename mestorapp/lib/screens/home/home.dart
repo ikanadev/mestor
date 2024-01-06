@@ -48,7 +48,7 @@ class HomeScreen extends ConsumerWidget {
               children: [
                 const Icon(Icons.lightbulb, size: 14),
                 Text(
-                  "Long press to see more options",
+                  "Double tap to record, long press to view options",
                   style: textTheme.bodySmall
                       ?.copyWith(fontStyle: FontStyle.italic),
                 ),
