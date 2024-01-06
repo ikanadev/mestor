@@ -6,7 +6,7 @@ import 'package:mestorapp/domain/domain.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/providers/providers.dart';
 import 'package:mestorapp/utils/utils.dart';
-import 'package:mestorapp/widgets/widgests.dart';
+import 'package:mestorapp/widgets/widgets.dart';
 
 class EditActivity extends ConsumerStatefulWidget {
   final String actId;
