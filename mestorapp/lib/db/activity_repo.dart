@@ -10,11 +10,11 @@ class ActivityDbRepository extends ActivityRepository {
   ActivityDbRepository({required this.appDb});
 
   @override
-  Future<void> addRecord(actId) async {
+  Future<void> addRecord(actId, {date}) async {
     await appDb.into(appDb.recordDb).insert(RecordDbCompanion.insert(
           id: nanoid(),
           activityId: actId,
-          createdAt: DateTime.now(),
+          createdAt: date ?? DateTime.now(),
         ));
   }
 

@@ -14,10 +14,10 @@ final recordsProvider =
 });
 
 class AsyncRecordsNotifier extends FamilyAsyncNotifier<List<Record>, String> {
-  Future<void> addRecord() async {
+  Future<void> addRecord({DateTime? date}) async {
     final appRepo = ref.watch(appRepoProvider);
     final recordFilter = ref.watch(recordFilterProvider);
-    await appRepo.activityRepo.addRecord(arg);
+    await appRepo.activityRepo.addRecord(arg, date: date);
     final newRecords = await appRepo.activityRepo.getRecords(
       arg,
       range: DateTimeRange.fromRecordFilter(recordFilter),
