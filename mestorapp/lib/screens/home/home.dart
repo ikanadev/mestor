@@ -7,6 +7,7 @@ import 'package:mestorapp/providers/providers.dart';
 import 'activity_item.dart';
 import 'activity_options.dart';
 import 'title_filter.dart';
+import 'menu_button.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -36,12 +37,21 @@ class HomeScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              "What you did",
-              textAlign: TextAlign.center,
-              style: textTheme.titleMedium,
+            Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                Column(
+                  children: [
+                    Text("What you did", style: textTheme.titleMedium),
+                    const TitleFilter(),
+                  ],
+                ),
+                Container(
+                  alignment: Alignment.topRight,
+                  child: const MenuButton(),
+                ),
+              ],
             ),
-            const TitleFilter(),
             const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
