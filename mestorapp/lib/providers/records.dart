@@ -17,8 +17,8 @@ class AsyncRecordsNotifier extends FamilyAsyncNotifier<List<Record>, String> {
   Future<void> addRecord({DateTime? date}) async {
     final appRepo = ref.watch(appRepoProvider);
     final recordFilter = ref.watch(recordFilterProvider);
-    await appRepo.activityRepo.addRecord(arg, date: date);
-    final newRecords = await appRepo.activityRepo.getRecords(
+    await appRepo.recordRepo.addRecord(arg, date: date);
+    final newRecords = await appRepo.recordRepo.getRecords(
       arg,
       range: DateTimeRange.fromRecordFilter(recordFilter),
     );
@@ -29,7 +29,7 @@ class AsyncRecordsNotifier extends FamilyAsyncNotifier<List<Record>, String> {
   Future<List<Record>> build(arg) async {
     final appRepo = ref.watch(appRepoProvider);
     final recordFilter = ref.watch(recordFilterProvider);
-    return await appRepo.activityRepo.getRecords(
+    return await appRepo.recordRepo.getRecords(
       arg,
       range: DateTimeRange.fromRecordFilter(recordFilter),
     );
@@ -38,8 +38,8 @@ class AsyncRecordsNotifier extends FamilyAsyncNotifier<List<Record>, String> {
   Future<void> removeLastRecord() async {
     final appRepo = ref.watch(appRepoProvider);
     final recordFilter = ref.watch(recordFilterProvider);
-    await appRepo.activityRepo.removeLastRecord(arg);
-    final newRecords = await appRepo.activityRepo.getRecords(
+    await appRepo.recordRepo.removeLastRecord(arg);
+    final newRecords = await appRepo.recordRepo.getRecords(
       arg,
       range: DateTimeRange.fromRecordFilter(recordFilter),
     );

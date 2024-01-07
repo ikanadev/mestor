@@ -6,8 +6,11 @@ import 'package:mestorapp/domain/repositories.dart';
 class AppRepo {
   static final AppDatabase db = AppDatabase();
   final ActivityRepository activityRepo;
+  final RecordRepository recordRepo;
 
-  AppRepo() : activityRepo = ActivityDbRepository(appDb: db);
+  AppRepo()
+      : activityRepo = ActivityDbRepository(appDb: db),
+        recordRepo = RecordDbRepository(appDb: db);
 }
 
 final appRepoProvider = Provider((ref) {

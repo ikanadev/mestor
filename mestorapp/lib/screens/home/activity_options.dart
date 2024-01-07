@@ -33,6 +33,34 @@ class ActivityOptionsDialog extends ConsumerWidget {
       });
     }
 
+    void handleDeleteActivity() {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("Confirm deletion"),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text("Cancel"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    ref
+                        .read(activitiesProvider.notifier)
+                        .deleteActivity(act.id)
+                        .then((_) {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                    });
+                  },
+                  child: const Text("Delete"),
+                ),
+              ],
+            );
+          });
+    }
+
     void goToEdit() {
       context.pop();
       context.push("/edit_activity/${act.id}");
@@ -58,6 +86,7 @@ class ActivityOptionsDialog extends ConsumerWidget {
           onPressed: goToEdit,
           child: const Text("Edit"),
         ),
+        const Divider(),
         SimpleDialogOption(
           onPressed: handleDeleteRecord,
           child: const Text(
@@ -65,7 +94,14 @@ class ActivityOptionsDialog extends ConsumerWidget {
             style: TextStyle(color: Colors.redAccent),
           ),
         ),
-        const SizedBox(height: 12),
+        SimpleDialogOption(
+          onPressed: handleDeleteActivity,
+          child: const Text(
+            "Delete activity",
+            style: TextStyle(color: Colors.redAccent),
+          ),
+        ),
+        const Divider(),
         SimpleDialogOption(
           child: const Text("Close"),
           onPressed: () => context.pop(),
