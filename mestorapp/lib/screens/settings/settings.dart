@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'backup_option.dart';
+import 'restore_option.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -15,6 +16,7 @@ class SettingsScreen extends StatelessWidget {
       body: ListView(
         children: const [
           BackupOption(),
+          RestoreOption(),
         ],
       ),
     );
