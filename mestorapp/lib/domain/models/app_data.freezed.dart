@@ -21,8 +21,7 @@ AppData _$AppDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AppData {
   List<Activity> get activities => throw _privateConstructorUsedError;
-  List<Record> get records => throw _privateConstructorUsedError;
-  DateTime? get deletedAt => throw _privateConstructorUsedError;
+  Map<String, List<Record>> get records => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,8 +33,7 @@ abstract class $AppDataCopyWith<$Res> {
   factory $AppDataCopyWith(AppData value, $Res Function(AppData) then) =
       _$AppDataCopyWithImpl<$Res, AppData>;
   @useResult
-  $Res call(
-      {List<Activity> activities, List<Record> records, DateTime? deletedAt});
+  $Res call({List<Activity> activities, Map<String, List<Record>> records});
 }
 
 /// @nodoc
@@ -53,7 +51,6 @@ class _$AppDataCopyWithImpl<$Res, $Val extends AppData>
   $Res call({
     Object? activities = null,
     Object? records = null,
-    Object? deletedAt = freezed,
   }) {
     return _then(_value.copyWith(
       activities: null == activities
@@ -63,11 +60,7 @@ class _$AppDataCopyWithImpl<$Res, $Val extends AppData>
       records: null == records
           ? _value.records
           : records // ignore: cast_nullable_to_non_nullable
-              as List<Record>,
-      deletedAt: freezed == deletedAt
-          ? _value.deletedAt
-          : deletedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as Map<String, List<Record>>,
     ) as $Val);
   }
 }
@@ -79,8 +72,7 @@ abstract class _$$AppDataImplCopyWith<$Res> implements $AppDataCopyWith<$Res> {
       __$$AppDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<Activity> activities, List<Record> records, DateTime? deletedAt});
+  $Res call({List<Activity> activities, Map<String, List<Record>> records});
 }
 
 /// @nodoc
@@ -96,7 +88,6 @@ class __$$AppDataImplCopyWithImpl<$Res>
   $Res call({
     Object? activities = null,
     Object? records = null,
-    Object? deletedAt = freezed,
   }) {
     return _then(_$AppDataImpl(
       activities: null == activities
@@ -106,11 +97,7 @@ class __$$AppDataImplCopyWithImpl<$Res>
       records: null == records
           ? _value._records
           : records // ignore: cast_nullable_to_non_nullable
-              as List<Record>,
-      deletedAt: freezed == deletedAt
-          ? _value.deletedAt
-          : deletedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as Map<String, List<Record>>,
     ));
   }
 }
@@ -120,8 +107,7 @@ class __$$AppDataImplCopyWithImpl<$Res>
 class _$AppDataImpl implements _AppData {
   const _$AppDataImpl(
       {required final List<Activity> activities,
-      required final List<Record> records,
-      this.deletedAt})
+      required final Map<String, List<Record>> records})
       : _activities = activities,
         _records = records;
 
@@ -136,20 +122,17 @@ class _$AppDataImpl implements _AppData {
     return EqualUnmodifiableListView(_activities);
   }
 
-  final List<Record> _records;
+  final Map<String, List<Record>> _records;
   @override
-  List<Record> get records {
-    if (_records is EqualUnmodifiableListView) return _records;
+  Map<String, List<Record>> get records {
+    if (_records is EqualUnmodifiableMapView) return _records;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_records);
+    return EqualUnmodifiableMapView(_records);
   }
 
   @override
-  final DateTime? deletedAt;
-
-  @override
   String toString() {
-    return 'AppData(activities: $activities, records: $records, deletedAt: $deletedAt)';
+    return 'AppData(activities: $activities, records: $records)';
   }
 
   @override
@@ -159,9 +142,7 @@ class _$AppDataImpl implements _AppData {
             other is _$AppDataImpl &&
             const DeepCollectionEquality()
                 .equals(other._activities, _activities) &&
-            const DeepCollectionEquality().equals(other._records, _records) &&
-            (identical(other.deletedAt, deletedAt) ||
-                other.deletedAt == deletedAt));
+            const DeepCollectionEquality().equals(other._records, _records));
   }
 
   @JsonKey(ignore: true)
@@ -169,8 +150,7 @@ class _$AppDataImpl implements _AppData {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_activities),
-      const DeepCollectionEquality().hash(_records),
-      deletedAt);
+      const DeepCollectionEquality().hash(_records));
 
   @JsonKey(ignore: true)
   @override
@@ -189,17 +169,14 @@ class _$AppDataImpl implements _AppData {
 abstract class _AppData implements AppData {
   const factory _AppData(
       {required final List<Activity> activities,
-      required final List<Record> records,
-      final DateTime? deletedAt}) = _$AppDataImpl;
+      required final Map<String, List<Record>> records}) = _$AppDataImpl;
 
   factory _AppData.fromJson(Map<String, dynamic> json) = _$AppDataImpl.fromJson;
 
   @override
   List<Activity> get activities;
   @override
-  List<Record> get records;
-  @override
-  DateTime? get deletedAt;
+  Map<String, List<Record>> get records;
   @override
   @JsonKey(ignore: true)
   _$$AppDataImplCopyWith<_$AppDataImpl> get copyWith =>

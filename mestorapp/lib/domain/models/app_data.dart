@@ -10,8 +10,7 @@ part 'app_data.g.dart';
 class AppData with _$AppData {
   const factory AppData({
     required List<Activity> activities,
-    required List<Record> records,
-    DateTime? deletedAt,
+    required Map<String, List<Record>> records,
   }) = _AppData;
 
   factory AppData.fromJson(Map<String, Object?> json) =>
