@@ -6,15 +6,19 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: "/",
-      builder: (ctx, state) => const HomeScreen(),
+      builder: (_, __) => const HomeScreen(),
     ),
     GoRoute(
       path: "/new_activity",
-      builder: (ctx, state) => const NewActivity(),
+      builder: (_, __) => const NewActivity(),
     ),
     GoRoute(
       path: "/edit_activity/:id",
-      builder: (ctx, state) => EditActivity(actId: state.pathParameters["id"]!),
+      builder: (_, state) => EditActivity(actId: state.pathParameters["id"]!),
+    ),
+    GoRoute(
+      path: "/settings",
+      builder: (_, __) => const SettingsScreen(),
     ),
   ],
 );

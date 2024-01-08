@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mestorapp/domain/domain.dart';
 
 part 'activity.freezed.dart';
+part 'activity.g.dart';
 
 @freezed
 class Activity with _$Activity {
@@ -13,6 +14,8 @@ class Activity with _$Activity {
     required DateTime createAt,
     DateTime? deletedAt,
     }) = _Activity;
+
+  factory Activity.fromJson(Map<String, Object?> json) => _$ActivityFromJson(json);
 }
 
 class NewActivityData {
