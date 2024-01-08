@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Activity _$ActivityFromJson(Map<String, dynamic> json) {
+  return _Activity.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Activity {
   String get id => throw _privateConstructorUsedError;
@@ -23,6 +27,7 @@ mixin _$Activity {
   DateTime get createAt => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ActivityCopyWith<Activity> get copyWith =>
       throw _privateConstructorUsedError;
@@ -156,7 +161,7 @@ class __$$ActivityImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$ActivityImpl implements _Activity {
   const _$ActivityImpl(
       {required this.id,
@@ -165,6 +170,9 @@ class _$ActivityImpl implements _Activity {
       required this.color,
       required this.createAt,
       this.deletedAt});
+
+  factory _$ActivityImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ActivityImplFromJson(json);
 
   @override
   final String id;
@@ -199,6 +207,7 @@ class _$ActivityImpl implements _Activity {
                 other.deletedAt == deletedAt));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, id, name, emoji, color, createAt, deletedAt);
@@ -208,6 +217,13 @@ class _$ActivityImpl implements _Activity {
   @pragma('vm:prefer-inline')
   _$$ActivityImplCopyWith<_$ActivityImpl> get copyWith =>
       __$$ActivityImplCopyWithImpl<_$ActivityImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ActivityImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Activity implements Activity {
@@ -218,6 +234,9 @@ abstract class _Activity implements Activity {
       required final ActColor color,
       required final DateTime createAt,
       final DateTime? deletedAt}) = _$ActivityImpl;
+
+  factory _Activity.fromJson(Map<String, dynamic> json) =
+      _$ActivityImpl.fromJson;
 
   @override
   String get id;

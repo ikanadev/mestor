@@ -14,11 +14,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Record _$RecordFromJson(Map<String, dynamic> json) {
+  return _Record.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Record {
   String get id => throw _privateConstructorUsedError;
   DateTime get createAt => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $RecordCopyWith<Record> get copyWith => throw _privateConstructorUsedError;
 }
@@ -98,9 +103,12 @@ class __$$RecordImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$RecordImpl implements _Record {
   const _$RecordImpl({required this.id, required this.createAt});
+
+  factory _$RecordImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RecordImplFromJson(json);
 
   @override
   final String id;
@@ -122,6 +130,7 @@ class _$RecordImpl implements _Record {
                 other.createAt == createAt));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, createAt);
 
@@ -130,12 +139,21 @@ class _$RecordImpl implements _Record {
   @pragma('vm:prefer-inline')
   _$$RecordImplCopyWith<_$RecordImpl> get copyWith =>
       __$$RecordImplCopyWithImpl<_$RecordImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$RecordImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Record implements Record {
   const factory _Record(
       {required final String id,
       required final DateTime createAt}) = _$RecordImpl;
+
+  factory _Record.fromJson(Map<String, dynamic> json) = _$RecordImpl.fromJson;
 
   @override
   String get id;
