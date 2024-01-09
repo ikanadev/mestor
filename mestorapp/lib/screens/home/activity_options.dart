@@ -21,7 +21,7 @@ class ActivityOptionsDialog extends ConsumerWidget {
       showDatePicker(
         context: context,
         lastDate: DateTime.now(),
-        firstDate: DateTime(2023),
+        firstDate: DateTime(2024),
       ).then((date) {
         if (date == null) return;
         ref
@@ -61,6 +61,11 @@ class ActivityOptionsDialog extends ConsumerWidget {
           });
     }
 
+    void viewHistory() {
+      context.pop();
+      context.push("/history/${act.id}");
+    }
+
     void goToEdit() {
       context.pop();
       context.push("/edit_activity/${act.id}");
@@ -81,6 +86,10 @@ class ActivityOptionsDialog extends ConsumerWidget {
         SimpleDialogOption(
           onPressed: handleCustomRecord,
           child: const Text("Record with past date"),
+        ),
+        SimpleDialogOption(
+          onPressed: viewHistory,
+          child: const Text("View history"),
         ),
         SimpleDialogOption(
           onPressed: goToEdit,

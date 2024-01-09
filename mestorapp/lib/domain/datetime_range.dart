@@ -29,7 +29,7 @@ class DateTimeRange {
       case RecordFilter.thisYear:
         start = DateTime(now.year, 1, 1, 0, 0, 0);
       case RecordFilter.allTime:
-        start = DateTime(2023);
+        start = DateTime(2024);
     }
     return DateTimeRange(start: start, end: end);
   }

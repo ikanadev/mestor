@@ -17,6 +17,10 @@ final router = GoRouter(
       builder: (_, state) => EditActivity(actId: state.pathParameters["id"]!),
     ),
     GoRoute(
+      path: "/history/:id",
+      builder: (_, state) => History(actId: state.pathParameters["id"]!),
+    ),
+    GoRoute(
       path: "/settings",
       builder: (_, __) => const SettingsScreen(),
     ),
