@@ -48,7 +48,7 @@ dependencies:
   nanoid2: ^2.0.1
   permission_handler: ^11.1.0
   json_annotation: ^4.8.1
-  file_picker: ^6.1.1
+  pick_or_save: ^2.2.4
 
 dev_dependencies:
   flutter_test:

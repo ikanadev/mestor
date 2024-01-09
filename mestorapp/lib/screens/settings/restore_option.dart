@@ -1,13 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:drift/drift.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mestorapp/db/models/models.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/providers/providers.dart';
+import 'package:pick_or_save/pick_or_save.dart';
 
 class RestoreOption extends ConsumerWidget {
   const RestoreOption({super.key});
@@ -22,9 +23,9 @@ class RestoreOption extends ConsumerWidget {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text("Caution!"),
+            title: const Text("Confirm restoration"),
             content: const Text(
-                "By restoring from file, all the current data will be replaced by the file data"),
+                "By restoring from backup file, all the current data will be replaced. Proceed?"),
             actions: [
               TextButton(
                 child: const Text("Close"),
@@ -63,7 +64,7 @@ class RestoreOption extends ConsumerWidget {
     }
 
     return ListTile(
-      leading: const Icon(Icons.file_upload),
+      leading: const Icon(Icons.restore_rounded),
       title: const Text("Restore data"),
       onTap: restoreBackup,
     );
@@ -117,19 +118,17 @@ AppData parseAppData(String data) {
 
 Future<String> readFileContentFromStorage() async {
   try {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['json'],
-      withData: true,
+    final filePaths = await PickOrSave().filePicker(
+      params: FilePickerParams(
+        allowedExtensions: [".json"],
+        pickerType: PickerType.file,
+      ),
     );
-    if (result == null || result.files.isEmpty) {
-      throw Exception('File not selected');
+    if (filePaths == null || filePaths.isEmpty) {
+      throw Exception('No file selected');
     }
-    final file = result.files.first;
-    if (file.bytes == null) {
-      throw Exception('Empty file');
-    }
-    final content = utf8.decode(file.bytes!);
+    File file = File(filePaths[0]);
+    final content = await file.readAsString();
     return content;
   } catch (e) {
     throw Exception('Error reading file');

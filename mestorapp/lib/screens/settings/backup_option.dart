@@ -1,54 +1,34 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/providers/providers.dart';
-import 'package:mestorapp/utils/utils.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:pick_or_save/pick_or_save.dart';
 
-
-class BackupOption extends StatefulWidget {
+class BackupOption extends StatelessWidget {
   const BackupOption({super.key});
-
-  @override
-  State<BackupOption> createState() => _BackupOptionState();
-}
-
-class _BackupOptionState extends State<BackupOption> {
-  bool _loading = false;
 
   @override
   Widget build(context) {
     void handleBackupData() async {
-      setState(() => _loading = true);
       try {
-        final status = await Permission.manageExternalStorage.status;
-        if (status != PermissionStatus.granted) {
-          final granted = await requestStoragePermission();
-          if (!granted) return;
-        }
+        final now = DateTime.now();
         final data = await getAppDataJson();
-        await saveData(data);
-        if (!context.mounted) return;
-        setState(() => _loading = false);
-        showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: const Text("Success"),
-            content: const Text("Backup saved to Downloads"),
-            actions: [
-              TextButton(
-                child: const Text("Close"),
-                onPressed: () => Navigator.of(context).pop(),
+        String fileName =
+            'mestor_backup_${now.year}_${now.month}_${now.day}_${now.hour}${now.minute}${now.second}.json';
+        await PickOrSave().fileSaver(
+          params: FileSaverParams(
+            saveFiles: [
+              SaveFileInfo(
+                fileName: fileName,
+                fileData: utf8.encode(data),
               ),
             ],
           ),
         );
       } catch (e) {
         if (!context.mounted) return;
-        setState(() => _loading = false);
         showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
@@ -66,20 +46,11 @@ class _BackupOptionState extends State<BackupOption> {
     }
 
     return ListTile(
-      leading: const Icon(Icons.file_download),
+      leading: const Icon(Icons.save_rounded),
       title: const Text('Backup data'),
-      onTap: _loading ? null : handleBackupData,
+      onTap: handleBackupData,
     );
   }
-}
-
-Future<void> saveData(String data) async {
-  const dirPath = '/storage/emulated/0/Download/';
-  final now = DateTime.now();
-  String fileName =
-      'mestor_backup_${now.year}_${now.month}_${now.day}_${now.hour}${now.minute}${now.second}.json';
-  final file = File(dirPath + fileName);
-  await file.writeAsString(data);
 }
 
 Future<String> getAppDataJson() async {
