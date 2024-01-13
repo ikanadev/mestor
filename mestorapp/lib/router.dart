@@ -24,5 +24,9 @@ final router = GoRouter(
       path: "/settings",
       builder: (_, __) => const SettingsScreen(),
     ),
+    GoRoute(
+      path: "/stats/week/:id",
+      builder: (_, state) => WeeklyStats(actId: state.pathParameters["id"]!),
+    ),
   ],
 );

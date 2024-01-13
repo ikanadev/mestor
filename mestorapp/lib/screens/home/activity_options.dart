@@ -61,9 +61,9 @@ class ActivityOptionsDialog extends ConsumerWidget {
           });
     }
 
-    void viewHistory() {
+    void goToWeeklyStats() {
       context.pop();
-      context.push("/history/${act.id}");
+      context.push("/stats/week/${act.id}");
     }
 
     void goToEdit() {
@@ -88,8 +88,8 @@ class ActivityOptionsDialog extends ConsumerWidget {
           child: const Text("Record with past date"),
         ),
         SimpleDialogOption(
-          onPressed: viewHistory,
-          child: const Text("View history"),
+          onPressed: goToWeeklyStats,
+          child: const Text("Stats"),
         ),
         SimpleDialogOption(
           onPressed: goToEdit,
