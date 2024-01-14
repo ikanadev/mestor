@@ -32,10 +32,10 @@ class LineChartPainter extends CustomPainter {
   }
 
   void drawContainer(Canvas canvas, Size size) {
-    const double radius = 10;
-    const double padding = 8;
+    const double radius = 12;
+    const double padding = 10;
     final linePaint = Paint()
-      ..color = Colors.grey.withAlpha(80)
+      ..color = Colors.white.withAlpha(50)
       ..strokeWidth = 1.5
       ..style = PaintingStyle.stroke;
     // corners
