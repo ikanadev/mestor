@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mestorapp/domain/domain.dart';
+import 'package:mestorapp/utils/utils.dart';
 
 import 'app_repo.dart';
 import 'stat_type.dart';
@@ -36,19 +37,14 @@ final recordHistoryProvider = FutureProvider.autoDispose
   final statType = ref.watch(statTypeProvider);
   final appRepo = ref.watch(appRepoProvider);
   if (statType == StatType.weekly) {
-    final startDate = args.date
-        .copyWith(hour: 0, minute: 0, second: 0)
-        .subtract(Duration(days: args.date.weekday - 1));
-    final endDate = args.date
-        .copyWith(hour: 23, minute: 59, second: 59)
-        .add(Duration(days: 7 - args.date.weekday));
+    final range = getWeekRange(args.date);
     final records = await appRepo.recordRepo.getRecords(
       args.actId,
-      range: DateTimeRange(start: startDate, end: endDate),
+      range: range,
     );
     final List<DayRecords> data = [];
     for (var i = 0; i < 7; i++) {
-      final day = startDate.add(Duration(days: i));
+      final day = range.start.add(Duration(days: i));
       final toAdd = records.filter((r) {
         final rDate = r.createAt;
         return rDate.year == day.year &&
