@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:mestorapp/domain/models/models.dart';
-import 'datetime_range.dart';
 
 abstract class ActivityRepository {
   Future<List<Activity>> getActivities();

@@ -20,7 +20,7 @@ class AsyncRecordsNotifier extends FamilyAsyncNotifier<List<Record>, String> {
     await appRepo.recordRepo.addRecord(arg, date: date);
     final newRecords = await appRepo.recordRepo.getRecords(
       arg,
-      range: DateTimeRange.fromRecordFilter(recordFilter),
+      range: recordFilter.dateTimeRange,
     );
     state = AsyncData(newRecords);
   }
@@ -31,7 +31,7 @@ class AsyncRecordsNotifier extends FamilyAsyncNotifier<List<Record>, String> {
     final recordFilter = ref.watch(recordFilterProvider);
     return await appRepo.recordRepo.getRecords(
       arg,
-      range: DateTimeRange.fromRecordFilter(recordFilter),
+      range: recordFilter.dateTimeRange,
     );
   }
 
@@ -41,7 +41,7 @@ class AsyncRecordsNotifier extends FamilyAsyncNotifier<List<Record>, String> {
     await appRepo.recordRepo.removeLastRecord(arg);
     final newRecords = await appRepo.recordRepo.getRecords(
       arg,
-      range: DateTimeRange.fromRecordFilter(recordFilter),
+      range: recordFilter.dateTimeRange,
     );
     state = AsyncData(newRecords);
   }

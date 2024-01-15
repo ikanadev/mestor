@@ -1,61 +1,76 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mestorapp/providers/providers.dart';
 
-class LineChart extends StatelessWidget {
-  const LineChart({super.key});
+import 'line_chart_painter.dart';
+
+class LineChart extends ConsumerStatefulWidget {
+  final String actId;
+  const LineChart({super.key, required this.actId});
+
+  @override
+  ConsumerState<LineChart> createState() => _LineChartState();
+}
+
+class _LineChartState extends ConsumerState<LineChart> {
+  late DateTime _date;
+
+  @override
+  void initState() {
+    _date = DateTime.now();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    return Container(
-      height: 200,
-      width: min(screenSize.width, screenSize.height),
-      color: Colors.red.withAlpha(5),
-      child: CustomPaint(
-        painter: LineChartPainter(),
-        child: const Center(child: Text("Hello there")),
-      ),
+    final recordsProv = ref.watch(
+      recordHistoryProvider(RecordHistoryArgs(_date, widget.actId)),
     );
-  }
-}
-
-class LineChartPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    drawContainer(canvas, size);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
-
-  void drawContainer(Canvas canvas, Size size) {
-    const double radius = 12;
-    const double padding = 10;
-    final linePaint = Paint()
-      ..color = Colors.white.withAlpha(50)
-      ..strokeWidth = 1.5
-      ..style = PaintingStyle.stroke;
-    // corners
-    var topLeft = const Offset(padding, padding);
-    var topRight = Offset(size.width - padding, padding);
-    var botRight = Offset(size.width - padding, size.height - padding);
-    var botLeft = Offset(padding, size.height - padding);
-    final borderPath = Path()
-      ..moveTo(topLeft.dx + radius, topLeft.dy)
-      ..lineTo(topRight.dx - radius, topRight.dy)
-      ..quadraticBezierTo(topRight.dx, topRight.dy, topRight.dx, topRight.dy + radius)
-      ..lineTo(botRight.dx, botRight.dy - radius)
-      ..quadraticBezierTo(
-          botRight.dx, botRight.dy, botRight.dx - radius, botRight.dy)
-      ..lineTo(botLeft.dx + radius, botLeft.dy)
-      ..quadraticBezierTo(botLeft.dx, botLeft.dy, botLeft.dx, botLeft.dy - radius)
-      ..lineTo(topLeft.dx, topLeft.dy + radius)
-      ..quadraticBezierTo(
-          topLeft.dx, topLeft.dy, topLeft.dx + radius, topLeft.dy);
-    // canvas.drawRect(rect, linePaint);
-    canvas.drawPath(borderPath, linePaint);
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text("${_date.year}/${_date.month}/${_date.day}"),
+              ),
+              IconButton(
+                icon: const Icon(Icons.chevron_left),
+                onPressed: () => setState(() {
+                  _date = _date.add(const Duration(days: -7));
+                }),
+              ),
+              IconButton(
+                icon: const Icon(Icons.chevron_right),
+                onPressed: () => setState(() {
+                  _date = _date.add(const Duration(days: 7));
+                }),
+              ),
+            ],
+          ),
+        ),
+        Center(
+          child: Container(
+            height: 200,
+            width: min(screenSize.width, screenSize.height),
+            color: Colors.red.withAlpha(5),
+            child: recordsProv.maybeWhen(
+              data: (recs) {
+                print(recs);
+                return CustomPaint(
+                  painter: LineChartPainter(),
+                  child: const Center(child: Text("Hello there")),
+                );
+              },
+              orElse: () => Container(),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
