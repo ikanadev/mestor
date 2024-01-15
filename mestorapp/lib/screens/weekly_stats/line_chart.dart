@@ -59,13 +59,9 @@ class _LineChartState extends ConsumerState<LineChart> {
             width: min(screenSize.width, screenSize.height),
             color: Colors.red.withAlpha(5),
             child: recordsProv.maybeWhen(
-              data: (recs) {
-                print(recs);
-                return CustomPaint(
-                  painter: LineChartPainter(),
-                  child: const Center(child: Text("Hello there")),
-                );
-              },
+              data: (recs) => CustomPaint(
+                painter: LineChartPainter(recs),
+              ),
               orElse: () => Container(),
             ),
           ),
