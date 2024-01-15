@@ -3,8 +3,24 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mestorapp/providers/providers.dart';
+import 'package:mestorapp/utils/utils.dart';
 
 import 'line_chart_painter.dart';
+
+const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 class LineChart extends ConsumerStatefulWidget {
   final String actId;
@@ -26,9 +42,11 @@ class _LineChartState extends ConsumerState<LineChart> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    final activityProv = ref.watch(activityProvider(widget.actId));
     final recordsProv = ref.watch(
       recordHistoryProvider(RecordHistoryArgs(_date, widget.actId)),
     );
+    final range = getWeekRange(_date);
     return Column(
       children: [
         Container(
@@ -36,16 +54,25 @@ class _LineChartState extends ConsumerState<LineChart> {
           child: Row(
             children: [
               Expanded(
-                child: Text("${_date.year}/${_date.month}/${_date.day}"),
+                child: Text(
+                  "${monthNames[range.start.month - 1]} ${range.start.day}  -  ${monthNames[range.end.month - 1]} ${range.end.day}",
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.02,
+                    wordSpacing: 0.4,
+                  ),
+                ),
               ),
-              IconButton(
-                icon: const Icon(Icons.chevron_left),
+              IconButton.filledTonal(
+                icon: const Icon(Icons.chevron_left, size: 30),
                 onPressed: () => setState(() {
                   _date = _date.add(const Duration(days: -7));
                 }),
               ),
-              IconButton(
-                icon: const Icon(Icons.chevron_right),
+              const SizedBox(width: 6),
+              IconButton.filledTonal(
+                icon: const Icon(Icons.chevron_right, size: 30),
                 onPressed: () => setState(() {
                   _date = _date.add(const Duration(days: 7));
                 }),
@@ -59,9 +86,14 @@ class _LineChartState extends ConsumerState<LineChart> {
             width: min(screenSize.width, screenSize.height),
             color: Colors.red.withAlpha(5),
             child: recordsProv.maybeWhen(
-              data: (recs) => CustomPaint(
-                painter: LineChartPainter(recs),
-              ),
+              data: (recs) {
+                return activityProv.maybeWhen(
+                  data: (act) {
+                    return CustomPaint(painter: LineChartPainter(recs, act));
+                  },
+                  orElse: () => Container(),
+                );
+              },
               orElse: () => Container(),
             ),
           ),
