@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:mestorapp/domain/models/models.dart';
 import 'package:mestorapp/providers/providers.dart';
 
+import 'providers/providers.dart';
+
 class ActivityOptionsDialog extends ConsumerWidget {
   final Activity act;
 

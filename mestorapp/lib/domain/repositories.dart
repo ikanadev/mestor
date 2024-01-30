@@ -10,6 +10,6 @@ abstract class ActivityRepository {
 
 abstract class RecordRepository {
   Future<void> addRecord(String actId, {DateTime? date});
-  Future<void> removeLastRecord(String actId);
+  Future<void> removeLastRecordFromDate(String actId, DateTime date);
   Future<List<Record>> getRecords(String actId, {required DateTimeRange range});
 }

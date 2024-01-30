@@ -35,16 +35,23 @@ class RecordDbRepository extends RecordRepository {
   }
 
   @override
-  Future<void> removeLastRecord(actId) async {
-    final records = await (appDb.select(appDb.recordDb)
-          ..where((r) => r.activityId.equals(actId))
+  Future<void> removeLastRecordFromDate(String actId, DateTime date) async {
+    final dateRecords = await (appDb.select(appDb.recordDb)
+          ..where(
+            (r) =>
+                r.activityId.equals(actId) &
+                r.createdAt.isBetweenValues(
+                  date.copyWith(hour: 0, minute: 0, second: 0),
+                  date.copyWith(hour: 23, minute: 59, second: 59),
+                ),
+          )
           ..orderBy(
             [(r) => OrderingTerm(expression: r.createdAt)],
           ))
         .get();
-    if (records.isEmpty) return;
+    if (dateRecords.isEmpty) return;
     final toDelete = appDb.delete(appDb.recordDb)
-      ..where((r) => r.id.equals(records[records.length - 1].id));
+      ..where((r) => r.id.equals(dateRecords.last.id));
     await toDelete.go();
   }
 }

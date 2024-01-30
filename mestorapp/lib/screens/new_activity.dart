@@ -84,7 +84,7 @@ class _NewActivity extends ConsumerState<NewActivity> {
                 ],
               ),
               const SizedBox(height: 28),
-              ElevatedButton(onPressed: _handleSave, child: const Text("Save")),
+              FilledButton(onPressed: _handleSave, child: const Text("Save")),
             ],
           ),
         ),
