@@ -8,6 +8,7 @@ import 'activity_item.dart';
 import 'activity_options.dart';
 import 'title_filter.dart';
 import 'menu_button.dart';
+import 'days.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -52,6 +53,8 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 8),
+            const Days(),
             const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +70,7 @@ class HomeScreen extends ConsumerWidget {
             const SizedBox(height: 8),
             actsProv.when(
               error: (error, _) => Text('$error'),
-              loading: () => const CircularProgressIndicator(),
+              loading: () => const Center(child: CircularProgressIndicator()),
               data: (acts) => Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(

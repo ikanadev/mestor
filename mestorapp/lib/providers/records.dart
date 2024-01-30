@@ -38,7 +38,7 @@ class AsyncRecordsNotifier extends FamilyAsyncNotifier<List<Record>, String> {
   Future<void> removeLastRecord() async {
     final appRepo = ref.watch(appRepoProvider);
     final recordFilter = ref.watch(recordFilterProvider);
-    await appRepo.recordRepo.removeLastRecord(arg);
+    await appRepo.recordRepo.removeLastRecordFromDate(arg, DateTime.now());
     final newRecords = await appRepo.recordRepo.getRecords(
       arg,
       range: recordFilter.dateTimeRange,
