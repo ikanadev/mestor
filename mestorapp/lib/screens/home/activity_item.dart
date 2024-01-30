@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mestorapp/domain/domain.dart';
 import 'package:mestorapp/domain/models/models.dart';
 
@@ -23,7 +24,12 @@ class ActivityItem extends ConsumerWidget {
       ref.read(recordsProvider(activity.id).notifier).addRecord();
     }
 
+    void goToWeeklyStats() {
+      context.push("/stats/week/${activity.id}");
+    }
+
     return GestureDetector(
+			onTap: goToWeeklyStats,
       onDoubleTap: handleAddRecord,
       onLongPress: () => openActivityMenu(activity),
       child: Container(

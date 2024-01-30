@@ -6,7 +6,6 @@ import 'package:mestorapp/providers/providers.dart';
 
 import 'activity_item.dart';
 import 'activity_options.dart';
-import 'title_filter.dart';
 import 'menu_button.dart';
 import 'days.dart';
 
@@ -39,23 +38,18 @@ class HomeScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Stack(
-              alignment: Alignment.topCenter,
+              alignment: Alignment.center,
               children: [
-                Column(
-                  children: [
-                    Text("What you did", style: textTheme.titleMedium),
-                    const TitleFilter(),
-                  ],
-                ),
+                Text("Daily | Weekly", style: textTheme.titleLarge),
                 Container(
-                  alignment: Alignment.topRight,
+                  alignment: Alignment.centerRight,
                   child: const MenuButton(),
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
             const Days(),
-            const SizedBox(height: 24),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

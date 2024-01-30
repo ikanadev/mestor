@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mestorapp/providers/providers.dart';
 
 import 'providers/providers.dart';
 
-class Day extends StatelessWidget {
+class Day extends ConsumerWidget {
   final DateTime date;
   final bool active;
   final ValueSetter<DateTime> setDate;
@@ -15,12 +16,13 @@ class Day extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final intl = ref.watch(intlProvider);
 
     return Container(
-      margin: const EdgeInsets.only(left: 8),
+      margin: const EdgeInsets.only(left: 5),
       child: FilledButton(
         onPressed: () {
           if (active) return;
@@ -29,7 +31,7 @@ class Day extends StatelessWidget {
         style: ButtonStyle(
           padding: const MaterialStatePropertyAll(EdgeInsets.all(4)),
           backgroundColor: MaterialStatePropertyAll(
-            colorScheme.primary.withOpacity(active ? 1.0 : 0.15),
+            active ? colorScheme.primary : Colors.black.withOpacity(0.55),
           ),
           elevation: MaterialStatePropertyAll(active ? 2.0 : 0.0),
         ),
@@ -37,7 +39,7 @@ class Day extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                "Mon",
+                intl.dateTime.dayAbbr.format(date),
                 style: textTheme.labelMedium?.copyWith(
                   color: colorScheme.onPrimary.withOpacity(active ? 1.0 : 0.6),
                 ),
