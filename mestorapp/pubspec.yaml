@@ -49,6 +49,7 @@ dependencies:
   permission_handler: ^11.1.0
   json_annotation: ^4.8.1
   pick_or_save: ^2.2.4
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
