@@ -95,10 +95,20 @@ class Grid {
 class LineChartPainter extends CustomPainter {
   List<DayRecords> dayRecords;
   Activity activity;
-  LineChartPainter(this.dayRecords, this.activity);
+  double xDelta;
+  double xOffset = 0;
+  ValueSetter<double> setXOffset;
+  LineChartPainter({
+    required this.dayRecords,
+    required this.activity,
+    required this.xDelta,
+    required this.xOffset,
+    required this.setXOffset,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
+    print("Painting");
     drawContainer(canvas, size);
     final grid = Grid.fromData(size, dayRecords);
     drawGrid(canvas, grid);
@@ -108,6 +118,17 @@ class LineChartPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant LineChartPainter oldDelegate) {
+    const maxXOffset = 100.0;
+    const minXOffset = 0.0;
+    if (xDelta == 0.0) return false;
+    if (xOffset < maxXOffset && xDelta > 0.0) {
+      setXOffset(xOffset + xDelta > maxXOffset ? maxXOffset : xOffset + xDelta);
+    }
+    if (xOffset > minXOffset && xDelta < 0.0) {
+      setXOffset(xOffset + xDelta < minXOffset ? minXOffset : xOffset + xDelta);
+    }
+    return xOffset != oldDelegate.xOffset;
+    /*
     if (dayRecords.length != oldDelegate.dayRecords.length) return true;
     for (var i = 0; i < dayRecords.length; i++) {
       final current = dayRecords[i];
@@ -119,6 +140,7 @@ class LineChartPainter extends CustomPainter {
       }
     }
     return false;
+		*/
   }
 
   void drawRecords(Canvas canvas, Grid grid) {
