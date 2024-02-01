@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mestorapp/providers/providers.dart';
 
-import 'heading.dart';
-import 'chart_container.dart';
+import 'month_picker.dart';
+import 'line_chart/line_chart.dart';
 
 class ActivityStats extends ConsumerWidget {
   final String actId;
@@ -10,13 +11,21 @@ class ActivityStats extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final activityProv = ref.watch(activityProvider(actId));
     return Scaffold(
-      appBar: AppBar(title: const Text("Weekly stats")),
+      backgroundColor: const Color(0xFF060606),
+      appBar: AppBar(
+        title: Text(activityProv.maybeWhen(
+          data: (act) => "${act.emoji} ${act.name}",
+          orElse: () => "",
+        )),
+        centerTitle: true,
+        backgroundColor: const Color(0xFF060606),
+      ),
       body: ListView(
         children: [
-          Heading(actId: actId),
-          const SizedBox(height: 12),
-					ChartContainer(actId: actId),
+          MonthPicker(actId: actId),
+          LineChart(actId: actId),
         ],
       ),
     );
