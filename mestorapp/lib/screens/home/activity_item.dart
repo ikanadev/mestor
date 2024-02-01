@@ -24,12 +24,12 @@ class ActivityItem extends ConsumerWidget {
       ref.read(recordsProvider(activity.id).notifier).addRecord();
     }
 
-    void goToWeeklyStats() {
-      context.push("/stats/week/${activity.id}");
+    void goToActivityStats() {
+      context.push("/activity/${activity.id}/stats");
     }
 
     return GestureDetector(
-			onTap: goToWeeklyStats,
+			onTap: goToActivityStats,
       onDoubleTap: handleAddRecord,
       onLongPress: () => openActivityMenu(activity),
       child: Container(

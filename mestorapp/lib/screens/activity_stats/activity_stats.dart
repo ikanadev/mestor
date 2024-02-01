@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'heading.dart';
 import 'chart_container.dart';
 
-class WeeklyStats extends ConsumerWidget {
+class ActivityStats extends ConsumerWidget {
   final String actId;
-  const WeeklyStats({super.key, required this.actId});
+  const ActivityStats({super.key, required this.actId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
