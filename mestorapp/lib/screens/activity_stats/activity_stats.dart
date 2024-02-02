@@ -4,6 +4,7 @@ import 'package:mestorapp/providers/providers.dart';
 
 import 'month_picker.dart';
 import 'line_chart/line_chart.dart';
+import 'month_calendar/month_calendar.dart';
 
 class ActivityStats extends ConsumerWidget {
   final String actId;
@@ -26,6 +27,8 @@ class ActivityStats extends ConsumerWidget {
         children: [
           MonthPicker(actId: actId),
           LineChart(actId: actId),
+					const SizedBox(height: 16),
+					MonthCalendar(actId: actId),
         ],
       ),
     );

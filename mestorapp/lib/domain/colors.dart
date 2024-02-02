@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 final Map<ActColor, Color> _colorsMap = {
@@ -57,4 +59,9 @@ extension ActColorExtension on ActColor {
     final matchColor = _colorsMap[this] ?? Colors.grey;
     return matchColor;
   }
+	Color withOpacity(int value, int maxValue) {
+    final matchColor = _colorsMap[this] ?? Colors.grey;
+		double opacity = pow((value * 1.0) / maxValue, 1.25).toDouble();
+		return matchColor.withOpacity(opacity < 0.2 ? 0.2 : opacity);
+	}
 }
