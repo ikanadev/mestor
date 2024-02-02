@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mestorapp/providers/providers.dart';
+import 'package:kount/providers/providers.dart';
 
 import '../providers/providers.dart';
 import 'month_calendar_painter.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mestorapp/domain/domain.dart';
+import 'package:kount/domain/domain.dart';
 
 final statTypeProvider = NotifierProvider<_StateTypeNotifier, StatType>(() {
   return _StateTypeNotifier();

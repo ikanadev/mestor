@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mestorapp/domain/domain.dart';
-import 'package:mestorapp/domain/models/models.dart';
+import 'package:kount/domain/domain.dart';
+import 'package:kount/domain/models/models.dart';
 
 import 'providers/providers.dart';
 

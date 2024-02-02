@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mestorapp/domain/domain.dart';
-import 'package:mestorapp/domain/models/models.dart';
+import 'package:kount/domain/domain.dart';
+import 'package:kount/domain/models/models.dart';
 
 import 'app_repo.dart';
 import 'record_filter.dart';

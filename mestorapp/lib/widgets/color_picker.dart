@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mestorapp/domain/domain.dart';
+import 'package:kount/domain/domain.dart';
 
 class ColorPickerButton extends StatelessWidget {
   const ColorPickerButton({

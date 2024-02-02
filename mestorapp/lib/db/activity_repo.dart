@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
-import 'package:mestorapp/db/models/models.dart';
-import 'package:mestorapp/domain/domain.dart';
-import 'package:mestorapp/domain/models/models.dart';
+import 'package:kount/db/models/models.dart';
+import 'package:kount/domain/domain.dart';
+import 'package:kount/domain/models/models.dart';
 import 'package:nanoid2/nanoid2.dart';
 
 class ActivityDbRepository extends ActivityRepository {

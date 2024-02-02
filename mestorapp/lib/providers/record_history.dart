@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:mestorapp/domain/domain.dart';
-import 'package:mestorapp/utils/utils.dart';
+import 'package:kount/domain/domain.dart';
+import 'package:kount/utils/utils.dart';
 
 import 'app_repo.dart';
 import 'stat_type.dart';

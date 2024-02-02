@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mestorapp/domain/models/models.dart';
-import 'package:mestorapp/providers/providers.dart';
+import 'package:kount/domain/models/models.dart';
+import 'package:kount/providers/providers.dart';
 
 import 'activity_item.dart';
 import 'activity_options.dart';

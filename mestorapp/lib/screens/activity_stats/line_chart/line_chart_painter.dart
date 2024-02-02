@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:mestorapp/domain/domain.dart';
-import 'package:mestorapp/domain/models/models.dart';
+import 'package:kount/domain/domain.dart';
+import 'package:kount/domain/models/models.dart';
 
 import 'chart_state.dart';
 import 'chart_data.dart';

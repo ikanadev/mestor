@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:mestorapp/screens/screens.dart';
+import 'package:kount/screens/screens.dart';
 
 final router = GoRouter(
   initialLocation: "/",

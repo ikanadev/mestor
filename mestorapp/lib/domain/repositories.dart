@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mestorapp/domain/models/models.dart';
+import 'package:kount/domain/models/models.dart';
 
 abstract class ActivityRepository {
   Future<List<Activity>> getActivities();

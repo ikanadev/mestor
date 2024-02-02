@@ -1,4 +1,4 @@
-import 'package:mestorapp/domain/models/models.dart';
+import 'package:kount/domain/models/models.dart';
 
 class DayRecords {
   DateTime day;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mestorapp/domain/domain.dart';
-import 'package:mestorapp/domain/models/models.dart';
+import 'package:kount/domain/domain.dart';
+import 'package:kount/domain/models/models.dart';
 
 const paddingX = 16.0;
 

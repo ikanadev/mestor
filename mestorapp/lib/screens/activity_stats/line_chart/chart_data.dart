@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mestorapp/domain/domain.dart';
+import 'package:kount/domain/domain.dart';
 
 import 'chart_state.dart';
 

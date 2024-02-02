@@ -2,11 +2,11 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mestorapp/domain/domain.dart';
-import 'package:mestorapp/domain/models/models.dart';
-import 'package:mestorapp/providers/providers.dart';
-import 'package:mestorapp/utils/utils.dart';
-import 'package:mestorapp/widgets/widgets.dart';
+import 'package:kount/domain/domain.dart';
+import 'package:kount/domain/models/models.dart';
+import 'package:kount/providers/providers.dart';
+import 'package:kount/utils/utils.dart';
+import 'package:kount/widgets/widgets.dart';
 
 class NewActivity extends ConsumerStatefulWidget {
   const NewActivity({super.key});
