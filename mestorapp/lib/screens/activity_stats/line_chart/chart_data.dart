@@ -39,15 +39,8 @@ class ChartData {
         maxData = dayRecord.records.length;
       }
     }
-    int rows = 1;
-    const maxRows = 10;
-    if (maxData > 0 && maxData <= maxRows) {
-      rows = maxData;
-    }
-    if (maxData > maxRows) {
-      rows = maxRows;
-    }
 
+    int rows = 5;
     List<double> coordsY = [];
     final rowH = square.height / rows;
     for (var i = 0; i <= rows; i++) {

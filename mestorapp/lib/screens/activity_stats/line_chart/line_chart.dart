@@ -23,7 +23,7 @@ class _LineChartState extends ConsumerState<LineChart> {
     final recordsProv = ref.watch(recordsProvider(widget.actId));
 
     return ConstrainedBox(
-      constraints: BoxConstraints.tight(Size(screenSize.width, 200)),
+      constraints: BoxConstraints.tight(Size(screenSize.width, 160)),
       child: Listener(
         onPointerMove: (event) {
           setState(() => deltaX = event.delta.dx);

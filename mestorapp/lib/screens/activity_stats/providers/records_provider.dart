@@ -17,7 +17,6 @@ final recordsProvider =
   );
   final end = nextMonth.subtract(const Duration(milliseconds: 1));
   final totalDays = nextMonth.difference(start).inDays;
-  print("Total days: $totalDays");
   final dbRecords = await appRepo.recordRepo.getRecords(
     actId,
     range: DateTimeRange(start: start, end: end),

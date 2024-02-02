@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 class DateTimeFormatter {
   final dayAbbr = DateFormat.E();
-  final month = DateFormat.MMM();
+  final month = DateFormat.MMMM();
 }
 
 class IntlFormatter {

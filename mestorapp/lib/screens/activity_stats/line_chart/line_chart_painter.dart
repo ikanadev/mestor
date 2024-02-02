@@ -6,9 +6,6 @@ import 'package:mestorapp/domain/models/models.dart';
 import 'chart_state.dart';
 import 'chart_data.dart';
 
-const padding = 10.0;
-const innerPadding = 24.0;
-
 class LineChartPainter extends CustomPainter {
   List<DayRecords> dayRecords;
   Activity activity;
@@ -67,12 +64,17 @@ class LineChartPainter extends CustomPainter {
     canvas.save();
     canvas.clipRRect(RRect.fromRectXY(chartData.square, 5, 5));
     for (int i = 0; i < dayRecords.length; i++) {
-      if (dayRecords[i].day.isAfter(now)) continue;
-      final qtty = dayRecords[i].records.length;
       // original position
       var xCoord = chartData.square.left + i * ChartState.colWidth;
       // substract the offset
       xCoord = xCoord - ChartState.instance.xOffset * ChartState.scrollXFactor;
+      canvas.drawLine(
+        Offset(xCoord, chartData.square.top),
+        Offset(xCoord, chartData.square.bottom),
+        chartData.gridLinePaint,
+      );
+      if (dayRecords[i].day.isAfter(now)) continue;
+      final qtty = dayRecords[i].records.length;
       final yCoord = chartData.square.bottom - qtty * chartData.dataUnitHeightY;
       if (i == 0) {
         path.moveTo(xCoord, yCoord);
@@ -88,11 +90,6 @@ class LineChartPainter extends CustomPainter {
           ..style = PaintingStyle.fill,
       );
 			*/
-      canvas.drawLine(
-        Offset(xCoord, chartData.square.top),
-        Offset(xCoord, chartData.square.bottom),
-        chartData.gridLinePaint,
-      );
     }
     canvas.drawPath(path, pathPaint);
     canvas.restore();
@@ -155,7 +152,7 @@ class LineChartPainter extends CustomPainter {
     );
     // Y label
     canvas.save();
-    canvas.translate(2, (200 + canvasWidth) / 2);
+    canvas.translate(2, (160 + canvasWidth) / 2);
     canvas.rotate(-pi / 2);
     painter.text = TextSpan(text: "Count", style: textStyle);
     painter.layout();
